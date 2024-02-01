@@ -4,9 +4,12 @@ from config import config
 
 from flask_sqlalchemy import SQLAlchemy
 
+from flask_login import LoginManager
 
 
 db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
 
 def create_app(config_name):
 
@@ -15,9 +18,13 @@ def create_app(config_name):
     config[config_name].init_app(app)
 
     db.init_app(app)
+    login_manager.init_app(app)
 
     from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint)
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    from .books import book as book_blueprint
+    app.register_blueprint(book_blueprint, url_prefix='/books')
 
 
     return app

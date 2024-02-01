@@ -1,0 +1,46 @@
+{% extends "base.html" %} 
+
+{% block title %} Sign Up {% endblock %} 
+
+
+{% block content %}
+
+{{ super() }}
+
+<h1>Sign Up</h1>
+
+<form action="" method="POST">
+  
+    {{ signup_form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ signup_form.first_name.label(class="form-label") }}
+        {{ signup_form.first_name(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ signup_form.last_name.label(class="form-label") }}
+        {{ signup_form.last_name(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ signup_form.email.label(class="form-label") }}
+        {{ signup_form.email(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ signup_form.password.label(class="form-label") }}
+        {{ signup_form.password(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        {{ signup_form.password2.label(class="form-label") }}
+        {{ signup_form.password2(class="form-control") }}
+    </div>
+
+    <div>
+        {{ signup_form.submit() }}
+    </div>
+</form>
+
+{% endblock %}

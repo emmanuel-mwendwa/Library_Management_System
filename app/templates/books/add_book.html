@@ -1,0 +1,46 @@
+<!-- add_book.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{{ form_heading }}</h2>
+
+  <form method="POST">
+
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    
+    <div class="form-group">
+      {{ form.title.label(class="form-label") }} 
+      {{ form.title(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.author.label(class="form-label") }} 
+      {{ form.author(class="form-control") }}
+    </div>
+
+    <div>
+      {{ form.publication_date.label(class="form-label") }} 
+      {{ form.publication_date(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.isbn.label(class="form-label") }}
+      {{ form.isbn(class="form-control") }}
+    </div>
+
+    <div>
+      {{ form.available_copies.label(class="form-label") }} 
+      {{ form.available_copies(class="form-control") }}
+    </div>
+
+    <div>
+      {{ form.total_copies.label(class="form-label") }} 
+      {{ form.total_copies(class="form-control") }}
+    </div>
+    
+    <div>
+      <input type="submit" value="{{ submit_button_text }}">
+    </div>
+  </form>
+{% endblock %}

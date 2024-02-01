@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="books-container">
+      <div class="book-card">
+        <img src="{{ book.cover_image_url }}" alt="Book Cover">
+        <div class="book-details">
+          <h3>{{ book.title }}</h3>
+          <p><strong>Author:</strong> {{ book.author }}</p>
+          <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+          <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+          <p><strong>Available Copies:</strong> {{ book.available_copies }}</p>
+          <p><strong>Total Copies:</strong> {{ book.total_copies }}</p>
+        </div>
+      </div>
+
+      <div>
+        <button>Update</button>
+        <button>Delete</button>
+      </div>
+  </div>
+{% endblock %}
