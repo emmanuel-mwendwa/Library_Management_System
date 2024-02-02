@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block styles %} {{ super() }} {% endblock %}
+
+{% block content %}
+
+{{ super() }}
+
+  <div class="books-container">
+        <div class="book-card">
+            <p><strong>First Name:</strong> {{ member.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ member.last_name }}</p>
+            <p><strong>Email:</strong> {{ member.email }}</p>
+            <p><strong>Member Since:</strong> {{ member.created_at.date() }}</p>
+            
+
+            <div class="button-container">
+                {% if member %}
+                <a href="{{ url_for('member.update_member', member_id=member.id) }}">
+                <button class="update-button">Update</button>
+                </a>
+                <button class="delete-button" onclick="confirmDelete(' {{member.id}} ')">Delete</button>
+                {% else %}
+                <p>Member not found</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmDelete(memberId) {
+          if (confirm("Are you sure you want to delete this member?")) {
+            window.location.href = "{{ url_for('member.delete_member', member_id=member.id) }}";
+          }
+        }
+      </script>
+
+{% endblock %}

@@ -50,3 +50,15 @@ class Book(db.Model):
     total_copies = db.Column(db.Integer, default=1)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Member(db.Model):
+
+    __tablename__ = "members"
+
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(16), nullable=False)
+    last_name = db.Column(db.String(16), nullable=False)
+    email = db.Column(db.String(56), unique=True, index=True, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)

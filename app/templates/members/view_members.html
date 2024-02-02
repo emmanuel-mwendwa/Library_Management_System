@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block styles %} {{ super() }} {% endblock %}
+
+{% block content %}
+
+{{ super() }}
+
+  <div class="add-book-button">
+    <a href="{{ url_for('member.add_member') }}" class="button">Add New Member</a>
+  </div>
+
+  <div class="books-container">
+    <table class="book-table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Member Since</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for member in members %}
+              <tr>
+                <td>{{ member.id }}</td>
+                <td>{{ member.first_name }}</td>
+                <td>{{ member.last_name }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.created_at.date() }}</td>
+                <td class="actions">
+                    {% if member %}
+                        <a href="{{ url_for('member.view_member', member_id=member.id)}}" class="view-button">View</a>
+                        <a href="{{ url_for('member.update_member', member_id=member.id) }}" class="update-button">Update</a>
+                        <button onclick="confirmDelete('{{member.id}}')" class="delete-button">Delete</button>
+                    {% else %}
+                        <p>Member not found</p>
+                    {% endif %}
+                </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  </div>
+
+  <script>
+    function confirmDelete(memberId) {
+      if (confirm("Are you sure you want to delete this member?")) {
+        window.location.href = "{{ url_for('member.delete_member', member_id=0) }}".replace('0', memberId);
+      }
+    }
+  </script>
+
+{% endblock %}

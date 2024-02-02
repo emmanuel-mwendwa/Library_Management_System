@@ -26,5 +26,8 @@ def create_app(config_name):
     from .books import book as book_blueprint
     app.register_blueprint(book_blueprint, url_prefix='/books')
 
+    from .members import member as member_blueprint
+    app.register_blueprint(member_blueprint, url_prefix="/members")
+
 
     return app

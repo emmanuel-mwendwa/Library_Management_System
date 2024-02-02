@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+  {{ super() }} 
+  <link rel="stylesheet" href="{{url_for('static', filename='book.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="form-container" class="book-form">
+  <h2>{{ form_heading }}</h2>
+
+  <form method="POST">
+
+    {{ form.hidden_tag() }}
+    {{ form.csrf_token }}
+    
+    <div class="form-group">
+      {{ form.first_name.label(class="form-label") }} 
+      {{ form.first_name(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.last_name.label(class="form-label") }} 
+      {{ form.last_name(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.email.label(class="form-label") }} 
+      {{ form.email(class="form-control") }}
+    </div>
+
+    
+    <div class="form-group">
+      <input type="submit" value="{{ submit_button_text }}" class="submit-button">
+    </div>
+  </form>
+</div>
+  
+{% endblock %}
