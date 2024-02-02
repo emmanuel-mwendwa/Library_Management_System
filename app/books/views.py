@@ -40,6 +40,7 @@ def add_book():
 
 
 @book.route("/view_books")
+@login_required
 def view_books():
 
     books = Book.query.all()
@@ -50,12 +51,25 @@ def view_books():
 @book.route("/view_book/<int:book_id>")
 def view_book(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()
+    try:
 
-    return render_template("books/view_book.html", book=book)
+        book = Book.query.filter_by(id=book_id).first()
+
+        if book is None:
+
+            raise Exception("Book not found")
+
+        return render_template("books/view_book.html", book=book)
+    
+    except Exception as e:
+
+        flash(f"Error: {str(e)}", category="error")
+
+        return render_template("error.html")
 
 
-@book.route('/update_book/<int:book_id>', methods=["GET", "PUT"])
+
+@book.route('/update_book/<int:book_id>', methods=["GET", "POST", "PUT"])
 def update_book(book_id):
 
     form = NewBookForm()
@@ -93,3 +107,20 @@ def update_book(book_id):
     submit_button_text = "Update Book"
 
     return render_template("books/add_book.html", form=form, submit_button_text=submit_button_text, form_heading=form_heading)
+
+
+@book.route('/delete_book/<int:book_id>', methods=["GET", "DELETE"])
+def delete_book(book_id):
+    
+    book = Book.query.get(book_id)
+
+    if book is None:
+
+        flash("Book not found", category="error")
+
+    db.session.delete(book)
+
+    db.session.commit()
+
+    return redirect(url_for("book.view_books"))
+

@@ -1,32 +1,44 @@
 {% extends "base.html" %} 
 
+
 {% block title %} Login {% endblock %} 
 
+{% block styles %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+
+{% endblock %}
 
 {% block content %}
 
 {{ super() }}
 
-<h1>Login</h1>
-
-<form action="" method="POST">
+<div class="form-container">
+    <div class="form-image">
+        <img src="{{ url_for('static', filename='images/login.jpg')}}" alt="">
+    </div>
+    <div class="form">
+        <form action="" method="POST">
   
-    {{ login_form.hidden_tag() }}
-
-    <div class="form-group">
-        {{ login_form.email.label(class="form-label") }}
-        {{ login_form.email(class="form-control") }}
+            {{ login_form.hidden_tag() }}
+        
+            <h1>Login</h1>
+        
+            <div class="form-group">
+                {{ login_form.email.label(class="form-label") }}
+                {{ login_form.email(class="form-control") }}
+            </div>
+        
+            <div class="form-group">
+                {{ login_form.password.label(class="form-label") }}
+                {{ login_form.password(class="form-control") }}
+            </div>
+        
+            <div>
+                {{ login_form.submit(class="form-submit") }}
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        {{ login_form.password.label(class="form-label") }}
-        {{ login_form.password(class="form-control") }}
-    </div>
-
-    <div>
-        {{ login_form.submit() }}
-    </div>
-</form>
-
+</div>
 
 {% endblock %}
