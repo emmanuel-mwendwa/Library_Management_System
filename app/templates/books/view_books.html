@@ -1,21 +1,59 @@
-<!-- list_books.html -->
 {% extends 'base.html' %}
 
+{% block styles %} {{ super() }} {% endblock %}
+
 {% block content %}
-  <h2>List of Books</h2>
-  <div class="books-container">
-    {% for book in books %}
-      <div class="book-card">
-        <a href="#">
-            <img src="{{ book.cover_image_url }}" alt="Book Cover">
-        </a>
-        <div class="book-details">
-          <h3>{{ book.title }}</h3>
-          <p><strong>Author:</strong> {{ book.author }}</p>
-          <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
-          <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-        </div>
-      </div>
-    {% endfor %}
+
+  <div class="add-book-button">
+    <a href="{{ url_for('book.add_book') }}" class="button">Add New Book</a>
   </div>
+
+  <div class="books-container">
+    <table class="book-table">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Cover</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Publication Date</th>
+              <th>ISBN</th>
+              <th>Available Copies</th>
+              <th>Total Copies</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for book in books %}
+              <tr>
+                <td>{{ book.id }}</td>
+                  <td class="cover-cell"><img src="{{ url_for('static', filename='images/login.jpg') }}" alt="Book Cover"></td>
+                  <td>{{ book.title }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.publication_date }}</td>
+                  <td>{{ book.isbn }}</td>
+                  <td>{{ book.available_copies }}</td>
+                  <td>{{ book.total_copies }}</td>
+                  <td class="actions">
+                      {% if book %}
+                          <a href="{{ url_for('book.view_book', book_id=book.id)}}" class="view-button">View</a>
+                          <a href="{{ url_for('book.update_book', book_id=book.id) }}" class="update-button">Update</a>
+                          <button onclick="confirmDelete('{{book.id}}')" class="delete-button">Delete</button>
+                      {% else %}
+                          <p>Book not found</p>
+                      {% endif %}
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  </div>
+
+  <script>
+    function confirmDelete(bookId) {
+      if (confirm("Are you sure you want to delete this book?")) {
+        window.location.href = "{{ url_for('book.delete_book', book_id=0) }}".replace('0', bookId);
+      }
+    }
+  </script>
 {% endblock %}

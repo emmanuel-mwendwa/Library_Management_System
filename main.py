@@ -2,7 +2,7 @@ from app import create_app, db
 
 from flask_migrate import Migrate
 
-from flask import redirect, url_for
+from flask import render_template
 
 
 app = create_app('default')
@@ -10,7 +10,7 @@ migrate = Migrate(app, db)
 
 @app.route("/")
 def home():
-    return redirect(url_for('book.view_books'))
+    return render_template("index.html")
 
 @app.shell_context_processor
 def make_shell_processor():

@@ -31,7 +31,7 @@ def add_book():
         db.session.add(new_book)
         db.session.commit()
 
-        return redirect(url_for('home'))
+        return redirect(url_for('book.view_books'))
     
     form_heading = "Add a New Book"
     submit_button_text = "Add Book"
@@ -56,7 +56,7 @@ def view_book(book_id):
         book = Book.query.filter_by(id=book_id).first()
 
         if book is None:
-
+            
             raise Exception("Book not found")
 
         return render_template("books/view_book.html", book=book)

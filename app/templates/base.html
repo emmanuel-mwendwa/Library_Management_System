@@ -7,10 +7,42 @@
 
     {% block styles %} 
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
     {% endblock %}
 </head>
 <body>
 
-    {% block content %} {% endblock %}
+    {% if current_user.is_authenticated %}
+        <nav class="navbar">
+            <div class="container">
+                <a href="/dashboard" class="logo">Your Library Name</a>
+        
+                <div class="navbar-links">
+                    <a href="{{ url_for('home')}}">Dashboard</a>
+                    <a href="{{ url_for('book.view_books')}}">Manage Books</a>
+                    <a href="/manage-users">Manage Users</a>
+                    <a href="{{ url_for('auth.logout')}}">Logout</a>
+                </div>
+            </div>
+        </nav>
+    {% endif %}
+
+
+    {% block content %}
+
+        <!-- display error or success messages  -->
+        <section class="flashed-messages__section--pop-up">
+            {% with messages = get_flashed_messages(with_categories=true) %} 
+                {% if messages %} 
+                    {% for category, message in messages %} 
+                    <div class="flashed-messages__div {{ category }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %} 
+                {% endif %}
+            {% endwith %}
+        </section>
+    
+    {% endblock %}
 </body>
 </html>

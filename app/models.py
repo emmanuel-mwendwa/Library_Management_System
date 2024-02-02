@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
     email = db.Column(db.String(56), unique=True, index=True, nullable=False)
-    password_hash = db.Column(db.String(76))
+    password_hash = db.Column(db.String(76), nullable=False)
     member_since = db.Column(db.DateTime, default=datetime.now())
 
     @property
