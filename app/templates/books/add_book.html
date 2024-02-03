@@ -2,14 +2,14 @@
 
 {% block styles %} 
   {{ super() }} 
-  <link rel="stylesheet" href="{{url_for('static', filename='book.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='add_form.css')}}">
 {% endblock %}
 
 {% block content %}
 <div class="form-container">
   <h2>{{ form_heading }}</h2>
 
-  <form method="POST" class="book-form">
+  <form method="POST" class="add-form">
 
     {{ form.hidden_tag() }}
     {{ form.csrf_token }}

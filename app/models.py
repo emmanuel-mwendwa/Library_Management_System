@@ -62,3 +62,72 @@ class Member(db.Model):
     email = db.Column(db.String(56), unique=True, index=True, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+
+class Transaction(db.Model):
+
+    __tablename__ = "transactions"
+
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, db.ForeignKey('books.id'), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'), nullable=False)
+    transaction_type = db.Column(db.String(10), nullable=False)
+    transaction_date = db.Column(db.DateTime, default=datetime.utcnow)
+    rent_fee = db.Column(db.Float, default=0.0)
+
+    book = db.relationship('Book', backref='transactions')
+    member = db.relationship('Member', backref='transactions')
+
+    def issue_book(self, book, member):
+
+        if book.available_copies > 0:
+
+            book.available_copies -= 1
+
+            transaction = Transaction(
+                    book=book, 
+                    member=member, 
+                    transaction_type='issue'
+                )
+
+            db.session.add(transaction)
+
+            db.session.commit()
+
+            return True
+        
+        else:
+
+            return False
+
+    def return_book(self, book, member):
+
+        transaction = Transaction.query.filter_by(
+            book=book, 
+            member=member, 
+            transaction_type='issue'
+        )\
+        .order_by(Transaction.transaction_date.desc())\
+        .first()
+
+        if transaction:
+
+            book.available_copies += 1
+
+            transaction_type = 'return'
+            
+            transaction = Transaction(
+                book=book,
+                member=member,
+                transaction_type=transaction_type,
+            )
+
+            db.session.add(transaction)
+
+            db.session.commit()
+
+            return True
+        
+        else:
+
+            return False

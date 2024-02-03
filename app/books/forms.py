@@ -17,7 +17,7 @@ class NewBookForm(FlaskForm):
                             DataRequired()
                         ])
     
-    publication_date = DateField('Publication Date (YYYY-MM-DD)', 
+    publication_date = DateField('Publication Date ', 
                                  format='%Y-%m-%d', 
                                  validators=[
                                     Optional()
