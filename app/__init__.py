@@ -29,5 +29,8 @@ def create_app(config_name):
     from .members import member as member_blueprint
     app.register_blueprint(member_blueprint, url_prefix="/members")
 
+    from .transactions import transaction as transaction_blueprint
+    app.register_blueprint(transaction_blueprint)
+
 
     return app

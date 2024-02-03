@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="POST" action="/issue_book">
+    {{ form.csrf_token }}
+    <label for="member_id">Member ID:</label>
+    {{ form.member_id() }}
+    <label for="book_id">Book ID:</label>
+    {{ form.book_id() }}
+    <button type="submit">Issue Book</button>
+</form>
+
+{% endblock %}

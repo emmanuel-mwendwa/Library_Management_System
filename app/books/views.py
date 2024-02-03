@@ -123,4 +123,3 @@ def delete_book(book_id):
     db.session.commit()
 
     return redirect(url_for("book.view_books"))
-
