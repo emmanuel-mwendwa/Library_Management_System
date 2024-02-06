@@ -1,14 +1,31 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block styles %} 
+  {{ super() }} 
+{% endblock %}
 
-<form method="POST" action="/issue_book">
-    {{ form.csrf_token }}
-    <label for="member_id">Member ID:</label>
-    {{ form.member_id() }}
-    <label for="book_id">Book ID:</label>
-    {{ form.book_id() }}
-    <button type="submit">Issue Book</button>
-</form>
+{% block content %}
+{{ super() }}
+
+<div class="form-container">
+    <form method="POST" action="{{ url_for('transaction.issue_book') }}" class="add-form">
+    
+        {{ form.csrf_token }}
+        
+        <div class="form-group">
+            {{form.member_id.label(class="form-label")}}
+            {{ form.member_id(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{form.book_id.label(class="form-label")}}
+            {{ form.book_id(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            <button class="submit-button" type="submit">Issue Book</button>
+        </div>
+    </form>
+</div>
 
 {% endblock %}

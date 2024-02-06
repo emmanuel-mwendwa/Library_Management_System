@@ -10,12 +10,22 @@ class IssueBookForm(FlaskForm):
     member_id = IntegerField("Member ID", validators=[
         DataRequired()
     ])
+
     book_id = IntegerField("Book ID", validators=[
         DataRequired()
     ])
 
 
 class ReturnBookForm(FlaskForm):
-    member_id = IntegerField('Member ID', validators=[DataRequired()])
-    book_id = IntegerField('Book ID', validators=[DataRequired()])
-    return_date = DateField('Return Date', format='%Y-%m-%d', validators=[DataRequired()])
+    member_id = IntegerField('Member ID', validators=[
+        DataRequired()
+        ])
+    
+    book_id = IntegerField('Book ID', validators=[
+        DataRequired()
+        ])
+    
+    return_date = DateField('Return Date', format='%Y-%m-%d', 
+                            validators=[
+                                DataRequired()
+                                ])

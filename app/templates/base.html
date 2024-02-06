@@ -8,6 +8,8 @@
     {% block styles %} 
         <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
+        <link rel="stylesheet" href="{{url_for('static', filename='add_form.css')}}">
     {% endblock %}
 
 </head>
@@ -29,6 +31,9 @@
                     <li><a href="{{ url_for('book.add_book')}}">Add Book</a></li>
                     <li><a href="{{ url_for('member.view_members')}}">Members List</a></li>
                     <li><a href="{{ url_for('member.add_member')}}">Add Member</a></li>
+                    <li><a href="{{ url_for('member.add_member')}}">View Transactions</a></li>
+                    <li><a href="{{ url_for('transaction.issue_book')}}">Issue Book</a></li>
+                    <li><a href="{{ url_for('transaction.return_book')}}">Return Book</a></li>
                     <li class="logout"><a href="{{ url_for('auth.logout')}}">Logout</a></li>
                 </ul>
             </nav>
@@ -40,14 +45,18 @@
                 {% block content %}
                 
                 <!-- display error or success messages  -->
-                <section class="flashed-messages__section--pop-up">
-                    {% with messages = get_flashed_messages(with_categories=true) %} 
-                    {% if messages %} 
-                    {% for category, message in messages %} 
-                    <div class="flashed-messages__div {{ category }}">
-                        {{ message }}
-                    </div>
-                    {% endfor %} 
+                
+                    <section class="flashed-messages-section">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <div class="flashed-messages-div {{category}}">
+                            <p>{{ message }}</p>
+                            <span class="close-alert">
+                                <div></div>
+                            </span>
+                        </div>
+                        {% endfor %}
                             {% endif %}
                             {% endwith %}
                     </section>

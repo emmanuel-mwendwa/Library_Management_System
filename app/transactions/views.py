@@ -6,7 +6,7 @@ from .. import db
 
 from ..models import Transaction, Member, Book
 
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, flash
 
 from datetime import datetime, timedelta
 
@@ -28,19 +28,30 @@ def issue_book():
 
         if not member or not book:
 
-            return {"Message": "Member or Book not found"}
+            return {"Message": "Member or Book not found"}, 404
         
         # Check if transaction exists
-        transaction = Transaction.query.filter_by(member_id=member_id, book_id=book_id, return_date=None).first()
+        transaction = Transaction.query\
+            .filter_by(member_id=member_id, book_id=book_id, return_date=None)\
+            .first()
 
         if transaction:
 
-            return {"Message": "Member already has book"}
+            flash(
+                message=f"{member.first_name} already has this book", 
+                category="error"
+                )
+            
+            return redirect(url_for(".issue_book"))
         
         # Check if book is available
         if book.available_copies <= 0:
 
-            return {"Message": "Book is not available for issuance"}
+            flash(
+                message="Book is not available for issuance",
+                category="error")
+            
+            return redirect(url_for('transaction.issue_book'))
         
         expected_return_date = datetime.utcnow() + timedelta(days=14)
 
@@ -75,10 +86,15 @@ def return_book():
 
         # Check if member, book, and transaction exist
         member = Member.query.get(member_id)
+        
         book = Book.query.get(book_id)
-        transaction = Transaction.query.filter_by(member_id=member_id, book_id=book_id, return_date=None).first()
+        
+        transaction = Transaction.query\
+                    .filter_by(member_id=member_id, book_id=book_id, return_date=None)\
+                    .first()
 
         if not member or not book or not transaction:
+            
             return ({"message": "Member, Book, or Transaction not found"}), 404
 
         # Update book and transaction information
@@ -91,3 +107,31 @@ def return_book():
         return ({"message": "Book returned successfully", "rent_fee": rent_fee})
     
     return render_template("transactions/return_book.html", form=form)
+
+
+@transaction.route('/view_transactions')
+def view_transactions():
+
+    transactions = Transaction.query.all()
+
+    transactions_data = []
+
+    for transaction in transactions:
+
+        member_name = transaction.member.first_name + " " + transaction.member.last_name
+
+        book_title = transaction.book.title
+
+        transaction_data = {
+            'id': transaction.id,
+            'member_name': member_name,
+            'book_title': book_title,
+            'issue_date': transaction.issue_date,
+            'return_date': transaction.return_date,
+            'rent_fee': transaction.rent_fee,
+            'expected_return_date': transaction.expected_return_date
+        }
+
+        transactions_data.append(transaction_data)
+
+    return render_template("transactions/view_transactions.html", transactions=transactions_data)
