@@ -78,6 +78,12 @@ body {
     color: white;
 }
 
+.navbar .navbar-links li a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+
 .navbar .navbar-links .logout {
     position: absolute;
     bottom: 0px;

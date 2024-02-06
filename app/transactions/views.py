@@ -1,6 +1,6 @@
 from . import transaction
 
-from .forms import IssueBookForm
+from .forms import IssueBookForm, ReturnBookForm
 
 from .. import db
 
@@ -30,6 +30,13 @@ def issue_book():
 
             return {"Message": "Member or Book not found"}
         
+        # Check if transaction exists
+        transaction = Transaction.query.filter_by(member_id=member_id, book_id=book_id, return_date=None).first()
+
+        if transaction:
+
+            return {"Message": "Member already has book"}
+        
         # Check if book is available
         if book.available_copies <= 0:
 
@@ -53,3 +60,34 @@ def issue_book():
         return redirect(url_for("book.view_books"))
 
     return render_template("transactions/issue_book.html", form=form)
+
+
+@transaction.route('/return_book', methods=["GET", "POST"])
+def return_book():
+
+    form = ReturnBookForm()
+
+    if form.validate_on_submit():
+
+        member_id = form.member_id.data
+        book_id = form.book_id.data
+        return_date = form.return_date.data
+
+        # Check if member, book, and transaction exist
+        member = Member.query.get(member_id)
+        book = Book.query.get(book_id)
+        transaction = Transaction.query.filter_by(member_id=member_id, book_id=book_id, return_date=None).first()
+
+        if not member or not book or not transaction:
+            return ({"message": "Member, Book, or Transaction not found"}), 404
+
+        # Update book and transaction information
+        book.available_copies += 1
+        transaction.return_date = return_date
+        rent_fee = transaction.calculate_rent_fee()
+        transaction.rent_fee = rent_fee
+        db.session.commit()
+
+        return ({"message": "Book returned successfully", "rent_fee": rent_fee})
+    
+    return render_template("transactions/return_book.html", form=form)

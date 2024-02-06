@@ -78,3 +78,18 @@ class Transaction(db.Model):
     return_date = db.Column(db.DateTime, nullable=True)
     rent_fee = db.Column(db.Float, default=0.0)
     expected_return_date = db.Column(db.DateTime, nullable=False)
+
+
+    def calculate_rent_fee(self):
+        if self.return_date is None:
+            return None  # Book hasn't been returned yet
+        else:
+
+            # Convert expected_return_date to datetime with time component
+            expected_return_datetime = datetime.combine(self.expected_return_date, datetime.min.time())
+
+            expected_return_date = expected_return_datetime.date()
+
+            days_overdue = (self.return_date - expected_return_date).days
+            rent_fee = max(0, days_overdue * 0.5)  # Adjust the penalty calculation as needed
+            return rent_fee

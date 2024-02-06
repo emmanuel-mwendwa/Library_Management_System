@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form method="POST" action="{{ url_for('transaction.return_book')}}">
+    {{ form.csrf_token }}
+    <label for="member_id">Member ID:</label>
+    {{ form.member_id() }}
+    <label for="book_id">Book ID:</label>
+    {{ form.book_id() }}
+    <label for="return_date">Return Date (YYYY-MM-DD):</label>
+    {{ form.return_date() }}
+    <button type="submit">Return Book</button>
+</form>
+
+{% endblock %}
