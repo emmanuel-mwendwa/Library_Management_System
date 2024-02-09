@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
+{% block title %} View Book {% endblock %}
+
 {% block styles %} {{ super() }} {% endblock %}
 
 {% block content %}
 
 {{ super() }}
 
-  <div class="books-container">
-      <div class="book-card">
+  <div class="card-container">
+      <div class="card">
         <img src="{{ url_for('static', filename='images/login.jpg')}}" alt="Book Cover">
-        <div class="book-details">
-          <h3>{{ book.title }}</h3>
+        <div class="card-details">
+          <p><strong>Title:</strong> {{ book.title }}</p>
           <p><strong>Author:</strong> {{ book.author }}</p>
           <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
           <p><strong>ISBN:</strong> {{ book.isbn }}</p>

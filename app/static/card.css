@@ -1,0 +1,55 @@
+.card-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    background-color: #fff;
+    border: 1px solid rgb(232, 235, 237);
+    border-radius: 25px;
+}
+
+.card img {
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 25px 25px 0px 0px;
+}
+
+.card-details {
+    margin: 10px 5px;
+    align-items: start;
+}
+
+.card-details p {
+    margin-top: 12px;
+}
+
+.button-container {
+    margin: 10px 5px;
+}
+
+.card .user-profile-pic {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
+.card .user-background {
+    background-color: #ddd;
+    height: 120px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 25px 25px 0px 0px;
+}

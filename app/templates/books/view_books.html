@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 
+{% block title %} View Books {% endblock %}
+
 {% block styles %} {{ super() }} {% endblock %}
 
 {% block content %}
+
+{{ super() }}
+
+  <form action="">
+    <input type="search" name="" id="" placeholder="Search Book">
+    <input type="submit" value="search">
+  </form>
+
   <div class="list-container">
     <table class="list-table">
       <thead>

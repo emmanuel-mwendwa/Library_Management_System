@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 
+{% block title %} View Member {% endblock %}
+
 {% block styles %} {{ super() }} {% endblock %}
 
 {% block content %}
 
 {{ super() }}
 
-  <div class="books-container">
-        <div class="book-card">
+  <div class="card-container">
+        <div class="card">
+          <div class="user-background">
+            <img class="user-profile-pic" src="{{ url_for('static', filename='images/profile.png')}}" alt="User Profile">
+          </div>
+          
+          <div class="card-details">
             <p><strong>First Name:</strong> {{ member.first_name }}</p>
             <p><strong>Last Name:</strong> {{ member.last_name }}</p>
             <p><strong>Email:</strong> {{ member.email }}</p>
             <p><strong>Member Since:</strong> {{ member.created_at.date() }}</p>
+          </div>
             
 
             <div class="button-container">

@@ -1,7 +1,8 @@
 /* Books and Members table */
 .list-container {
-    margin-top: 20px;
+    margin: 20px;
     padding: 16px 24px;
+    background-color: #fff;
 }
 
 .list-table {

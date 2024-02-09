@@ -11,6 +11,8 @@
 
 {% block content %}
 
+{{ super() }}
+
 <div class="form-container">
     <div class="form-image">
         <img src="{{ url_for('static', filename='images/login.jpg')}}" alt="">

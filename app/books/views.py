@@ -86,7 +86,7 @@ def update_book(book_id):
         book.author = form.author.data
         book.publication_date = form.publication_date.data
         book.isbn = form.isbn.data
-        book.available_copies = form.available_copies.data
+        book.available_copies = form.total_copies.data
         book.total_copies = form.total_copies.data
 
         # Update the 'updated_at' attribute
@@ -100,7 +100,6 @@ def update_book(book_id):
     form.author.data = book.author
     form.publication_date.data = book.publication_date
     form.isbn.data = book.isbn
-    form.available_copies.data = book.available_copies
     form.total_copies.data = book.total_copies
 
     form_heading = "Update Book"
