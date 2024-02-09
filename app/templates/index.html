@@ -6,22 +6,143 @@
 
 {{ super() }}
 
-<div>
-    <i></i>
-    <p>100</p>
-    <h4>Total Books</h4>
+<div class="dash-card-container">
+    <div class="dash-card">
+        <i></i>
+        <p>100</p>
+        <h4>Total Books</h4>
+    </div>
+    
+    <div class="dash-card">
+        <i></i>
+        <p>20</p>
+        <h4>Members</h4>
+    </div>
+    
+    <div class="dash-card">
+        <i></i>
+        <p>120</p>
+        <h4>Borrowed</h4>
+    </div>
+
+    <div class="dash-card">
+        <i></i>
+        <p>120</p>
+        <h4>Borrowed</h4>
+    </div>
 </div>
 
-<div>
-    <i></i>
-    <p>20</p>
-    <h4>Members</h4>
+<div class="recents-container">
+    <div class="recent-members">
+        <div class="list-container">
+            <div class="list-title">
+                <h4>Recent Members</h4>
+                <p><a href="">View All <span>-></span></a></p>
+            </div>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Joined</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john@gmail.com</td>
+                        <td>2024-02-12</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="recent-books">
+        <div class="list-container">
+            <div class="list-title">
+                <h4>Recent Books</h4>
+                <p><a href="">View All <span>-></span></a></p>
+            </div>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>ISBN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Flask</td>
+                        <td>John Doe</td>
+                        <td>20240212</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="recent-issues">
+        <div class="list-container">
+            <div class="list-title">
+                <h4>Recent Issues</h4>
+                <p><a href="">View All <span>-></span></a></p>
+            </div>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Member</th>
+                        <th>Issue Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Flask</td>
+                        <td>John Doe</td>
+                        <td>2024-02-12</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="recent-returns">
+        <div class="list-container">
+            <div class="list-title">
+                <h4>Recent Returns</h4>
+                <p><a href="">View All <span>-></span></a></p>
+            </div>
+            <table class="list-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Member</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Flask</td>
+                        <td>John Doe</td>
+                        <td>2024-02-12</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<div>
-    <i></i>
-    <p>120</p>
-    <h4>Borrowed</h4>
-</div>
+
+
 
 {% endblock %}
