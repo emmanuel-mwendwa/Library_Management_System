@@ -78,6 +78,7 @@ class Transaction(db.Model):
     return_date = db.Column(db.DateTime, nullable=True)
     rent_fee = db.Column(db.Float, default=0.0)
     expected_return_date = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.String(20))
 
 
     def calculate_rent_fee(self):

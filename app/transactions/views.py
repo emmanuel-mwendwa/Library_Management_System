@@ -61,7 +61,8 @@ def issue_book():
             book_id = book.id,
             member_id = member.id,
             issue_date = datetime.utcnow(),
-            expected_return_date = expected_return_date
+            expected_return_date = expected_return_date,
+            status = "Borrowed"
         )
 
         db.session.add(new_transaction)
@@ -83,6 +84,7 @@ def return_book():
         member_id = form.member_id.data
         book_id = form.book_id.data
         return_date = form.return_date.data
+        book_status = "Returned"
 
         # Check if member, book, and transaction exist
         member = Member.query.get(member_id)
@@ -100,6 +102,7 @@ def return_book():
         # Update book and transaction information
         book.available_copies += 1
         transaction.return_date = return_date
+        transaction.status = book_status
         rent_fee = transaction.calculate_rent_fee()
         transaction.rent_fee = rent_fee
         db.session.commit()
@@ -129,7 +132,8 @@ def view_transactions():
             'issue_date': transaction.issue_date,
             'return_date': transaction.return_date,
             'rent_fee': transaction.rent_fee,
-            'expected_return_date': transaction.expected_return_date
+            'expected_return_date': transaction.expected_return_date,
+            'status': transaction.status
         }
 
         transactions_data.append(transaction_data)

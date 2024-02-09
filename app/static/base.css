@@ -43,22 +43,6 @@ body {
     text-align: end;
 }
 
-.header .search-container {
-    max-width: 600px;
-    position: relative;
-    display: flex;
-}
-
-.header .search-container form .search-bar {
-    border: 1px solid gray;
-    border-radius: 5px;
-    height: 20px;
-    width: 100%;
-    padding: 14px 23px;
-    outline: 0;
-    background-color: #f5f5f5;
-}
-
 .sidebar {
     /* margin-left: -575px; */
     z-index: 1041;

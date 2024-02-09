@@ -49,12 +49,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for recent_member in recent_members %}
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>john@gmail.com</td>
-                        <td>2024-02-12</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ recent_member.first_name }} {{ recent_member.last_name }}</td>
+                        <td>{{ recent_member.email }}</td>
+                        <td>{{ recent_member.created_at.date() }}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -76,12 +78,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for recent_book in recent_books %}
                     <tr>
-                        <td>1</td>
-                        <td>Flask</td>
-                        <td>John Doe</td>
-                        <td>20240212</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ recent_book.title }}</td>
+                        <td>{{ recent_book.author }}</td>
+                        <td>{{ recent_book.isbn }}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -103,12 +107,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for recent_issue in recent_issues %}
                     <tr>
-                        <td>1</td>
-                        <td>Flask</td>
-                        <td>John Doe</td>
-                        <td>2024-02-12</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ recent_issue.book.title }}</td>
+                        <td>{{ recent_issue.member.first_name }} {{ recent_issue.member.last_name }}</td>
+                        <td>{{ recent_issue.issue_date.date() }}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
@@ -130,12 +136,14 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for recent_return in recent_returns %}
                     <tr>
-                        <td>1</td>
-                        <td>Flask</td>
-                        <td>John Doe</td>
-                        <td>2024-02-12</td>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ recent_return.book.title }}</td>
+                        <td>{{ recent_return.member.first_name }} {{ recent_return.member.last_name }}</td>
+                        <td>{{ recent_return.return_date.date() }}</td>
                     </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
