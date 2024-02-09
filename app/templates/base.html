@@ -16,11 +16,17 @@
 <body>
 
     <div class="main-wrapper">
+        {% if current_user.is_authenticated %}
         <div class="header">
             <a href="{{ url_for('home')}}" class="logo">Dream Library</a>
+
+            <div class="user-profile">
+                <p>Hello, {{ current_user.first_name }}</p>
+                <img src="{{ url_for('static', filename='images/login.jpg')}}" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
+            </div>
+            
         </div>
 
-        {% if current_user.is_authenticated %}
 
         <div class="sidebar">
             <nav class="navbar">
@@ -31,7 +37,7 @@
                     <li><a href="{{ url_for('book.add_book')}}">Add Book</a></li>
                     <li><a href="{{ url_for('member.view_members')}}">Members List</a></li>
                     <li><a href="{{ url_for('member.add_member')}}">Add Member</a></li>
-                    <li><a href="{{ url_for('member.add_member')}}">View Transactions</a></li>
+                    <li><a href="{{ url_for('transaction.view_transactions')}}">View Transactions</a></li>
                     <li><a href="{{ url_for('transaction.issue_book')}}">Issue Book</a></li>
                     <li><a href="{{ url_for('transaction.return_book')}}">Return Book</a></li>
                     <li class="logout"><a href="{{ url_for('auth.logout')}}">Logout</a></li>

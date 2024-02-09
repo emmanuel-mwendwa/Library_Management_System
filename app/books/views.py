@@ -24,7 +24,7 @@ def add_book():
             author=form.author.data,
             publication_date=form.publication_date.data,
             isbn=form.isbn.data,
-            available_copies=form.available_copies.data,
+            available_copies=form.total_copies.data,
             total_copies=form.total_copies.data
         )
 

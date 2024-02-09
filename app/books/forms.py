@@ -28,12 +28,6 @@ class NewBookForm(FlaskForm):
                            Optional()
                         ])
     
-    available_copies = IntegerField('Available Copies', 
-                                    validators=[
-                                        DataRequired(), 
-                                        NumberRange(min=0)
-                                    ])
-    
     total_copies = IntegerField('Total Copies', 
                                 validators=[
                                     DataRequired(), 

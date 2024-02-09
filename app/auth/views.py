@@ -51,7 +51,7 @@ def login():
 
             if next is None or not next.startswith('/'):
 
-                next = url_for('book.view_books')
+                next = url_for('home')
 
             return redirect(next)
         
@@ -69,4 +69,14 @@ def logout():
     flash("You have been logged out!!", category="success")
 
     return redirect(url_for('auth.login'))
+    
+
+# if user has not logged in 
+@auth.before_app_request
+def before_request():
+    if not current_user.is_authenticated\
+        and request.endpoint != 'auth.login'\
+            and request.endpoint != 'static':
+        
+        return redirect(url_for('auth.login'))
     
