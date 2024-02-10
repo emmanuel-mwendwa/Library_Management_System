@@ -2,7 +2,7 @@ from app import create_app, db
 
 from flask_migrate import Migrate
 
-from flask import render_template
+from flask import render_template, redirect, url_for
 
 from app.models import Book, Member, Transaction
 
@@ -11,6 +11,10 @@ app = create_app('default')
 migrate = Migrate(app, db)
 
 @app.route("/")
+def index():
+    return redirect(url_for('home'))
+
+@app.route("/home")
 def home():
 
     recent_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()

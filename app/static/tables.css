@@ -1,8 +1,24 @@
-/* Books and Members table */
+/* Books and Members table starts here */
 .list-container {
     margin: 20px;
     padding: 16px 24px;
     background-color: #fff;
+}
+
+.list-container form {
+}
+
+.list-container form input[type='search'] {
+    padding: 9px 22px;
+    min-width: 320px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: -5px;
+}
+
+.list-container form input[type='submit'] {
+    padding: 9px 22px;    
+    border-radius: 0px 5px 5px 0px;
+
 }
 
 .list-title {
@@ -73,4 +89,4 @@
     background-color: #e53935;
 }
 
-/* Books table */
+/* Books and Members table ends here */

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 
 from flask_login import login_required
 
@@ -39,11 +39,18 @@ def add_book():
     return render_template('books/add_book.html', form=form, submit_button_text=submit_button_text)
 
 
-@book.route("/view_books")
-@login_required
+@book.route("/view_books", methods=["GET"])
 def view_books():
 
-    books = Book.query.all()
+    search_term = request.args.get("search_term", "")
+
+    if search_term:
+        # Perform search query based on the search term
+        books = Book.query.filter(Book.title.ilike(f"%{search_term}%") | Book.author.ilike(f"%{search_term}%")).all()
+        
+    else:
+
+        books = Book.query.all()
 
     return render_template("books/view_books.html", books=books)
 

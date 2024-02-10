@@ -8,12 +8,16 @@
 
 {{ super() }}
 
-  <form action="">
-    <input type="search" name="" id="" placeholder="Search Book">
-    <input type="submit" value="search">
-  </form>
+  
+  <div class="page-title">
+    <h4>Books List</h4>
+  </div>
 
   <div class="list-container">
+    <form action="{{ url_for('book.view_books') }}" method="get">
+      <input type="search" name="search_term" value="{{ request.args.get('search_term', '') }}" placeholder="Search Book">
+      <input type="submit" value="Search">
+    </form>
     <table class="list-table">
       <thead>
           <tr>

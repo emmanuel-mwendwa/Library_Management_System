@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 
 from flask_login import login_required
 
@@ -40,7 +40,15 @@ def add_member():
 @member.route("/view_members")
 def view_members():
 
-    members = Member.query.all()
+    search_term = request.args.get("search_term", "")
+
+    if search_term:
+        # Perform search query based on the search term
+        members = Member.query.filter(Member.first_name.ilike(f"%{search_term}%") | Member.email.ilike(f"%{search_term}%") | Member.last_name.ilike(f"%{search_term}%")).all()
+
+    else:
+
+        members = Member.query.all()
 
     return render_template("members/view_members.html", members=members)
 

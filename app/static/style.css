@@ -1,0 +1,239 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f2f2f2;
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+/* base layout starts here  */
+
+.header {
+    height: 60px;
+    z-index: 999;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 15px 0px;
+    background: rgb(255, 255, 255);
+    border-bottom: 1px solid transparent;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.header a {
+    text-decoration: none;
+    font-size: 24px;
+    margin-left: 10px;
+}
+
+.header .user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: end;
+}
+
+.sidebar {
+    /* margin-left: -575px; */
+    z-index: 1041;
+    background: rgb(255, 255, 255);
+
+    margin-top: 0px;
+    position: fixed;
+    top: 60px;
+    bottom: 0px;
+    left: 0px;
+    width: 230px;
+
+    border-right: 1px solid rgb(232, 235, 237);
+    border-top: 1px solid rgb(232, 235, 237);
+}
+
+.navbar {
+    padding: 20px;
+}
+
+.navbar .navbar-links {
+    list-style: none;
+}
+
+.navbar .navbar-links li {
+    margin-bottom: 20px;
+}
+
+.navbar .navbar-links li a {
+    padding: 10px 15px;
+    color: #212b36;
+
+    margin-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+
+    text-decoration: none;
+}
+
+.navbar .navbar-links li a:hover {
+    background-color: #212b36;
+    color: white;
+}
+
+.navbar .navbar-links li a:is(:link, :active, :visited).active {
+    background-color: #212b36;
+    color: white;
+}
+
+.navbar .navbar-links .logout {
+    position: absolute;
+    bottom: 0px;
+}
+
+.page-wrapper {
+    position: fixed;
+    top: 60px;
+    bottom: 0px;
+    left: 230px;
+    right: 0px;
+
+    padding-top: 30px;
+    overflow-x: scroll;
+}
+
+/* base layout ends here  */
+
+/* dashboard starts here  */
+
+.dash-card-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+}
+
+.dash-card {
+    height: 80px;
+    width: 280px;
+    background-color: #fff;
+    padding-left: 12px;
+    margin: 0px auto;
+}
+
+.recent-members,
+.recent-books,
+.recent-issues,
+.recent-returns {
+    grid-column: span 2;
+}
+
+
+/* dashboard card ends here  */
+
+/* Flashes messages section */
+
+.flashed-messages-section {
+    margin: 0px 20px 10px; 
+}
+
+.flashed-messages-div {
+    font-size: 1.2rem;
+    padding: 9px 22px;
+    border-radius: 4px;
+    margin: 0 auto;
+
+    max-width: 1000px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.close-alert div::before,
+.close-alert div::after {
+    content: "";
+    display: block;
+    margin-top: -3px;
+    height: 3px;
+    width: 20px;
+    background-color: black;
+    border-radius: 1px;
+}
+
+.close-alert div::before {
+    transform: rotate(-45deg);
+}
+
+.close-alert div::after {
+    transform: rotate(45deg);
+}
+
+.flashed-messages-section .error {
+    background-color: rgba(255, 0, 0, 0.4);
+}
+
+.flashed-messages-section .success {
+    background-color: green;
+}
+
+/* Flashed messages end here */
+
+/* add form starts here  */
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.add-form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 12px;
+}
+
+.submit-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.submit-button:hover {
+    background-color: #45a049;
+}
+
+/* add details to form ends here  */

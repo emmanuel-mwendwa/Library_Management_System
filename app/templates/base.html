@@ -1,88 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %} </title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
 
-    {% block styles %} 
-        <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='tables.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='flash.css') }}">
-        <link rel="stylesheet" href="{{url_for('static', filename='add_form.css')}}">
-        <link rel="stylesheet" href="{{url_for('static', filename='card.css')}}">
-        <link rel="stylesheet" href="{{url_for('static', filename='dashboard.css')}}">
+    {% block styles %}
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='tables.css') }}"
+    />
+    <link rel="stylesheet" href="{{url_for('static', filename='card.css')}}" />
     {% endblock %}
-
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="main-wrapper">
-        {% if current_user.is_authenticated %}
-        <div class="header">
-            <a href="{{ url_for('home')}}" class="logo">Dream Library</a>
+      {% if current_user.is_authenticated %}
+      <div class="header">
+        <a href="{{ url_for('home')}}" class="logo">Dream Library</a>
 
-            <div class="user-profile">
-                <p>Hello, {{ current_user.first_name }}</p>
-                <img src="{{ url_for('static', filename='images/login.jpg')}}" alt="" style="width: 40px; height: 40px; border-radius: 50%;">
+        <div class="user-profile">
+          <p>Hello, {{ current_user.first_name }}</p>
+          <img
+            src="{{ url_for('static', filename='images/login.jpg')}}"
+            alt=""
+            style="width: 40px; height: 40px; border-radius: 50%"
+          />
+        </div>
+      </div>
+
+      <div class="sidebar">
+        <nav class="navbar">
+          <ul class="navbar-links">
+            <li><a href="{{ url_for('home')}}">Dashboard</a></li>
+            <h4>Books</h4>
+            <li><a href="{{ url_for('book.view_books')}}">Books List</a></li>
+            <li><a href="{{ url_for('book.add_book')}}">Add Book</a></li>
+            <h4>Members</h4>
+            <li>
+              <a href="{{ url_for('member.view_members')}}">Members List</a>
+            </li>
+            <li><a href="{{ url_for('member.add_member')}}">Add Member</a></li>
+            <h4>Transactions</h4>
+            <li>
+              <a href="{{ url_for('transaction.view_transactions')}}"
+                >View Transactions</a
+              >
+            </li>
+            <li>
+              <a href="{{ url_for('transaction.issue_book')}}">Issue Book</a>
+            </li>
+            <li>
+              <a href="{{ url_for('transaction.return_book')}}">Return Book</a>
+            </li>
+            <li class="logout">
+              <a href="{{ url_for('auth.logout')}}">Logout</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="page-wrapper">
+        <div class="content-div">
+          {% endif %} {% block content %}
+
+          <!-- display error or success messages  -->
+
+          <section class="flashed-messages-section">
+            {% with messages = get_flashed_messages(with_categories=true) %} {%
+            if messages %} {% for category, message in messages %}
+            <div class="flashed-messages-div {{category}}">
+              <p>{{ message }}</p>
+              <span class="close-alert">
+                <div></div>
+              </span>
             </div>
-            
+            {% endfor %} {% endif %} {% endwith %}
+          </section>
+
+          {% endblock %}
         </div>
-
-
-        <div class="sidebar">
-            <nav class="navbar">
-                
-                <ul class="navbar-links">
-                    <li><a href="{{ url_for('home')}}">Dashboard</a></li>
-                    <li><a href="{{ url_for('book.view_books')}}">Books List</a></li>
-                    <li><a href="{{ url_for('book.add_book')}}">Add Book</a></li>
-                    <li><a href="{{ url_for('member.view_members')}}">Members List</a></li>
-                    <li><a href="{{ url_for('member.add_member')}}">Add Member</a></li>
-                    <li><a href="{{ url_for('transaction.view_transactions')}}">View Transactions</a></li>
-                    <li><a href="{{ url_for('transaction.issue_book')}}">Issue Book</a></li>
-                    <li><a href="{{ url_for('transaction.return_book')}}">Return Book</a></li>
-                    <li class="logout"><a href="{{ url_for('auth.logout')}}">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
-
-        <div class="page-wrapper">
-            <div class="content-div">
-                {% endif %}
-                {% block content %}
-                
-                <!-- display error or success messages  -->
-                
-                    <section class="flashed-messages-section">
-                        {% with messages = get_flashed_messages(with_categories=true) %}
-                        {% if messages %}
-                        {% for category, message in messages %}
-                        <div class="flashed-messages-div {{category}}">
-                            <p>{{ message }}</p>
-                            <span class="close-alert">
-                                <div></div>
-                            </span>
-                        </div>
-                        {% endfor %}
-                            {% endif %}
-                            {% endwith %}
-                    </section>
-            
-                    {% endblock %}
-                    
-                </div>
-        </div>
-
-          
-
+      </div>
     </div>
-
-    
-    
-       
-        
-      
-    
-</body>
+  </body>
+  <script defer src="{{ url_for('static', filename='js/activePage.js')}}"></script>
 </html>

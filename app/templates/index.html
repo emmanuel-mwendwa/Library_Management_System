@@ -1,156 +1,162 @@
-{% extends 'base.html' %}
-
-{% block styles %} {{ super() }} {% endblock %}
-
-{% block content %}
-
-{{ super() }}
+{% extends 'base.html' %} {% block title %} Dashboard {% endblock %} {% block
+styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
 
 <div class="dash-card-container">
-    <div class="dash-card">
-        <i></i>
-        <p>100</p>
-        <h4>Total Books</h4>
-    </div>
-    
-    <div class="dash-card">
-        <i></i>
-        <p>20</p>
-        <h4>Members</h4>
-    </div>
-    
-    <div class="dash-card">
-        <i></i>
-        <p>120</p>
-        <h4>Borrowed</h4>
-    </div>
+  <div class="dash-card">
+    <i></i>
+    <p>100</p>
+    <h4>Total Books</h4>
+  </div>
 
-    <div class="dash-card">
-        <i></i>
-        <p>120</p>
-        <h4>Borrowed</h4>
+  <div class="dash-card">
+    <i></i>
+    <p>20</p>
+    <h4>Members</h4>
+  </div>
+
+  <div class="dash-card">
+    <i></i>
+    <p>120</p>
+    <h4>Borrowed</h4>
+  </div>
+
+  <div class="dash-card">
+    <i></i>
+    <p>120</p>
+    <h4>Borrowed</h4>
+  </div>
+
+  <div class="recent-members">
+    <div class="list-container">
+      <div class="list-title">
+        <h4>Recent Members</h4>
+        <p>
+          <a href="">View All <span>-></span></a>
+        </p>
+      </div>
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Joined</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recent_member in recent_members %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>
+              {{ recent_member.first_name }} {{ recent_member.last_name }}
+            </td>
+            <td>{{ recent_member.email }}</td>
+            <td>{{ recent_member.created_at.date() }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
+  </div>
+
+  <div class="recent-books">
+    <div class="list-container">
+      <div class="list-title">
+        <h4>Recent Books</h4>
+        <p>
+          <a href="">View All <span>-></span></a>
+        </p>
+      </div>
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>ISBN</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recent_book in recent_books %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ recent_book.title }}</td>
+            <td>{{ recent_book.author }}</td>
+            <td>{{ recent_book.isbn }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="recent-issues">
+    <div class="list-container">
+      <div class="list-title">
+        <h4>Recent Issues</h4>
+        <p>
+          <a href="">View All <span>-></span></a>
+        </p>
+      </div>
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Member</th>
+            <th>Issue Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recent_issue in recent_issues %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ recent_issue.book.title }}</td>
+            <td>
+              {{ recent_issue.member.first_name }} {{
+              recent_issue.member.last_name }}
+            </td>
+            <td>{{ recent_issue.issue_date.date() }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="recent-returns">
+    <div class="list-container">
+      <div class="list-title">
+        <h4>Recent Returns</h4>
+        <p>
+          <a href="">View All <span>-></span></a>
+        </p>
+      </div>
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Member</th>
+            <th>Return Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for recent_return in recent_returns %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ recent_return.book.title }}</td>
+            <td>
+              {{ recent_return.member.first_name }} {{
+              recent_return.member.last_name }}
+            </td>
+            <td>{{ recent_return.return_date.date() }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-
-<div class="recents-container">
-    <div class="recent-members">
-        <div class="list-container">
-            <div class="list-title">
-                <h4>Recent Members</h4>
-                <p><a href="">View All <span>-></span></a></p>
-            </div>
-            <table class="list-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Joined</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recent_member in recent_members %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ recent_member.first_name }} {{ recent_member.last_name }}</td>
-                        <td>{{ recent_member.email }}</td>
-                        <td>{{ recent_member.created_at.date() }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="recent-books">
-        <div class="list-container">
-            <div class="list-title">
-                <h4>Recent Books</h4>
-                <p><a href="">View All <span>-></span></a></p>
-            </div>
-            <table class="list-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>ISBN</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recent_book in recent_books %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ recent_book.title }}</td>
-                        <td>{{ recent_book.author }}</td>
-                        <td>{{ recent_book.isbn }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="recent-issues">
-        <div class="list-container">
-            <div class="list-title">
-                <h4>Recent Issues</h4>
-                <p><a href="">View All <span>-></span></a></p>
-            </div>
-            <table class="list-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Member</th>
-                        <th>Issue Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recent_issue in recent_issues %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ recent_issue.book.title }}</td>
-                        <td>{{ recent_issue.member.first_name }} {{ recent_issue.member.last_name }}</td>
-                        <td>{{ recent_issue.issue_date.date() }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <div class="recent-returns">
-        <div class="list-container">
-            <div class="list-title">
-                <h4>Recent Returns</h4>
-                <p><a href="">View All <span>-></span></a></p>
-            </div>
-            <table class="list-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>Member</th>
-                        <th>Return Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for recent_return in recent_returns %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ recent_return.book.title }}</td>
-                        <td>{{ recent_return.member.first_name }} {{ recent_return.member.last_name }}</td>
-                        <td>{{ recent_return.return_date.date() }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-
-
 
 {% endblock %}
