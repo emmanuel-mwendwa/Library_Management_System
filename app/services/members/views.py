@@ -4,13 +4,15 @@ from flask_login import login_required
 
 from datetime import datetime
 
+from sqlalchemy.exc import IntegrityError
+
 from . import member
 
 from .forms import AddMemberForm
 
-from .. import db
+from app import db
 
-from ..models import Member
+from app.models import Member
 
 
 @member.route('/add_member', methods=["GET", "POST"])
@@ -20,15 +22,11 @@ def add_member():
 
     if form.validate_on_submit():
 
-        new_member = Member(
+        Member.create(
             first_name=form.first_name.data,
             last_name=form.last_name.data,
             email=form.email.data.lower(),
         )
-
-        db.session.add(new_member)
-
-        db.session.commit()
 
         return redirect(url_for('member.view_members'))
     
@@ -44,11 +42,14 @@ def view_members():
 
     if search_term:
         # Perform search query based on the search term
-        members = Member.query.filter(Member.first_name.ilike(f"%{search_term}%") | Member.email.ilike(f"%{search_term}%") | Member.last_name.ilike(f"%{search_term}%")).all()
+        members = Member.filter_by(
+            Member.first_name.ilike(f"%{search_term}%") | 
+            Member.email.ilike(f"%{search_term}%") | 
+            Member.last_name.ilike(f"%{search_term}%")).all()
 
     else:
 
-        members = Member.query.all()
+        members = Member.get_all()
 
     return render_template("members/view_members.html", members=members)
 
@@ -58,7 +59,7 @@ def view_member(member_id):
 
     try:
 
-        member = Member.query.filter_by(id=member_id).first()
+        member = Member.get(member_id)
 
         if member is None:
             
@@ -78,7 +79,7 @@ def update_member(member_id):
 
     form = AddMemberForm()
 
-    member = Member.query.get(member_id)
+    member = Member.get(member_id)
 
     if member is None:
 
@@ -86,14 +87,15 @@ def update_member(member_id):
 
     if form.validate_on_submit():
         # Update the member attributes based on the data received in the request
-        member.first_name = form.first_name.data
-        member.last_name = form.last_name.data
-        member.email = form.email.data
 
-        # Update the 'updated_at' attribute
-        member.updated_at = datetime.utcnow()
-
-        db.session.commit()
+        member.update(
+            first_name = form.first_name.data,
+            last_name = form.last_name.data,
+            email = form.email.data,
+        
+            # Update the 'updated_at' attribute
+            updated_at = datetime.utcnow()
+        )
 
         return redirect(url_for('member.view_member', member_id=member.id))
     
@@ -109,14 +111,23 @@ def update_member(member_id):
 @member.route('/delete_member/<int:member_id>', methods=["GET", "DELETE"])
 def delete_member(member_id):
     
-    member = Member.query.get(member_id)
+    member = Member.get(member_id)
 
     if member is None:
 
         flash("Member not found", category="error")
 
-    db.session.delete(member)
+    try:
+        
+        member.delete()
 
-    db.session.commit()
+        flash(f"Member deleted successfully", category="success")
+
+    except IntegrityError as e:
+
+        db.session.rollback()
+
+        flash(f"Failed to delete member. Please try again.", category="error")
+
 
     return redirect(url_for("member.view_members"))

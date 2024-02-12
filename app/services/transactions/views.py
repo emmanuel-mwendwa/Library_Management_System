@@ -2,9 +2,9 @@ from . import transaction
 
 from .forms import IssueBookForm, ReturnBookForm
 
-from .. import db
+from app import db
 
-from ..models import Transaction, Member, Book
+from app.models import Book, Member, Transaction
 
 from flask import render_template, redirect, url_for, flash
 
@@ -57,17 +57,13 @@ def issue_book():
 
         book.available_copies -= 1
 
-        new_transaction = Transaction(
+        Transaction.create(
             book_id = book.id,
             member_id = member.id,
             issue_date = datetime.utcnow(),
             expected_return_date = expected_return_date,
             status = "Borrowed"
         )
-
-        db.session.add(new_transaction)
-
-        db.session.commit()
 
         return redirect(url_for("book.view_books"))
 
@@ -115,7 +111,7 @@ def return_book():
 @transaction.route('/view_transactions')
 def view_transactions():
 
-    transactions = Transaction.query.all()
+    transactions = Transaction.get_all()
 
     transactions_data = []
 

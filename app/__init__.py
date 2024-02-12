@@ -23,13 +23,13 @@ def create_app(config_name):
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
 
-    from .books import book as book_blueprint
+    from .services.books import book as book_blueprint
     app.register_blueprint(book_blueprint, url_prefix='/books')
 
-    from .members import member as member_blueprint
+    from .services.members import member as member_blueprint
     app.register_blueprint(member_blueprint, url_prefix="/members")
 
-    from .transactions import transaction as transaction_blueprint
+    from .services.transactions import transaction as transaction_blueprint
     app.register_blueprint(transaction_blueprint)
 
 

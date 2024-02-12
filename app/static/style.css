@@ -69,6 +69,11 @@ body {
     list-style: none;
 }
 
+div nav ul h4,
+div nav ul hr {
+    margin: 18px;
+}
+
 .navbar .navbar-links li {
     margin-bottom: 20px;
 }

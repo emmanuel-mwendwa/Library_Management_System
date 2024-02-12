@@ -4,13 +4,17 @@ from flask_login import login_required
 
 from datetime import datetime
 
+from sqlalchemy.exc import IntegrityError
+
+from sqlalchemy.orm.exc import UnmappedInstanceError
+
 from . import book
 
 from .forms import NewBookForm
 
-from .. import db
+from app import db
 
-from ..models import Book
+from app.models import Book
 
 
 @book.route('/add_book', methods=['GET', 'POST'])
@@ -18,7 +22,8 @@ def add_book():
     form = NewBookForm()
 
     if form.validate_on_submit():
-        new_book = Book(
+        
+        Book.create(
 
             title=form.title.data,
             author=form.author.data,
@@ -27,9 +32,6 @@ def add_book():
             available_copies=form.total_copies.data,
             total_copies=form.total_copies.data
         )
-
-        db.session.add(new_book)
-        db.session.commit()
 
         return redirect(url_for('book.view_books'))
     
@@ -46,11 +48,14 @@ def view_books():
 
     if search_term:
         # Perform search query based on the search term
-        books = Book.query.filter(Book.title.ilike(f"%{search_term}%") | Book.author.ilike(f"%{search_term}%")).all()
+        books = Book.filter_by(
+            Book.title.ilike(f"%{search_term}%") | 
+            Book.author.ilike(f"%{search_term}%"))\
+        .all()
         
     else:
 
-        books = Book.query.all()
+        books = Book.get_all()
 
     return render_template("books/view_books.html", books=books)
 
@@ -60,7 +65,7 @@ def view_book(book_id):
 
     try:
 
-        book = Book.query.filter_by(id=book_id).first()
+        book = Book.get(book_id)
 
         if book is None:
             
@@ -81,7 +86,7 @@ def update_book(book_id):
 
     form = NewBookForm()
 
-    book = Book.query.get(book_id)
+    book = Book.get(book_id)
 
     if book is None:
 
@@ -89,17 +94,19 @@ def update_book(book_id):
 
     if form.validate_on_submit():
         # Update the book attributes based on the data received in the request
-        book.title = form.title.data
-        book.author = form.author.data
-        book.publication_date = form.publication_date.data
-        book.isbn = form.isbn.data
-        book.available_copies = form.total_copies.data
-        book.total_copies = form.total_copies.data
 
-        # Update the 'updated_at' attribute
-        book.updated_at = datetime.utcnow()
+        book.update(
+            title = form.title.data,
+            author = form.author.data,
+            publication_date = form.publication_date.data,
+            isbn = form.isbn.data,
+            available_copies = form.total_copies.data,
+            total_copies = form.total_copies.data,
 
-        db.session.commit()
+            # Update the 'updated_at' attribute
+            updated_at = datetime.utcnow()
+        )
+
 
         return redirect(url_for('book.view_book', book_id=book.id))
     
@@ -118,14 +125,26 @@ def update_book(book_id):
 @book.route('/delete_book/<int:book_id>', methods=["GET", "DELETE"])
 def delete_book(book_id):
     
-    book = Book.query.get(book_id)
+    book = Book.get(book_id)
 
     if book is None:
 
         flash("Book not found", category="error")
 
-    db.session.delete(book)
+    try:
 
-    db.session.commit()
+        book.delete()
+
+        flash(f"Book deleted successfully", category="success")
+
+    except IntegrityError as e:
+
+        db.session.rollback()
+
+        flash(f"Cannot delete book as transactions with this book exist", category="error")
+
+    except UnmappedInstanceError as e:
+
+        flash(f"Error occurred while deleting book '{book.title}'", category="error")
 
     return redirect(url_for("book.view_books"))

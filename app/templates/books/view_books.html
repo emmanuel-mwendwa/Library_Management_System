@@ -37,8 +37,8 @@
               <tr>
                 <td>{{ book.id }}</td>
                   <td class="cover-cell"><img src="{{ url_for('static', filename='images/login.jpg') }}" alt="Book Cover"></td>
-                  <td>{{ book.title }}</td>
-                  <td>{{ book.author }}</td>
+                  <td>{{ book.title|truncate(16) }}</td>
+                  <td>{{ book.author|truncate(16) }}</td>
                   <td>{{ book.publication_date }}</td>
                   <td>{{ book.isbn }}</td>
                   <td>{{ book.available_copies }}</td>

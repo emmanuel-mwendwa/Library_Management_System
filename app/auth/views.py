@@ -18,16 +18,12 @@ def signup():
 
     if signup_form.validate_on_submit():
 
-        new_user = User(
+        User.create(
             first_name=signup_form.first_name.data,
             last_name=signup_form.last_name.data,
             email=signup_form.email.data.lower(),
             password=signup_form.password.data
         )
-
-        db.session.add(new_user)
-
-        db.session.commit()
 
         return redirect(url_for('auth.login'))
 

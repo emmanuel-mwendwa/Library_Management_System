@@ -37,14 +37,17 @@
         <nav class="navbar">
           <ul class="navbar-links">
             <li><a href="{{ url_for('home')}}">Dashboard</a></li>
+            <hr />
             <h4>Books</h4>
             <li><a href="{{ url_for('book.view_books')}}">Books List</a></li>
             <li><a href="{{ url_for('book.add_book')}}">Add Book</a></li>
+            <hr />
             <h4>Members</h4>
             <li>
               <a href="{{ url_for('member.view_members')}}">Members List</a>
             </li>
             <li><a href="{{ url_for('member.add_member')}}">Add Member</a></li>
+            <hr />
             <h4>Transactions</h4>
             <li>
               <a href="{{ url_for('transaction.view_transactions')}}"

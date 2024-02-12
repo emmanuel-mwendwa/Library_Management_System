@@ -39,6 +39,12 @@
     text-align: left;
 }
 
+.list-table.td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
 .cover-cell img {
     width: 50px; /* Set the width to 50px */
     height: auto;
