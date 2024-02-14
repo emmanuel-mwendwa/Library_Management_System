@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Internal Server Error {% endblock %}
+
+{% block styles %} {{ super() }} {% endblock %}
+
+{% block content %}
+
+{{ super() }}
+
+
+<h1> Internal Server Error</h1>
+
+<p>Sorry, something went wrong on the server. We're working to fix it.</p>
+
+{% endblock %}

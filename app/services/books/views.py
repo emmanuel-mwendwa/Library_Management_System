@@ -36,6 +36,7 @@ def add_book():
         return redirect(url_for('book.view_books'))
     
     form_heading = "Add a New Book"
+    
     submit_button_text = "Add Book"
 
     return render_template('books/add_book.html', form=form, submit_button_text=submit_button_text)

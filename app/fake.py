@@ -37,7 +37,7 @@ def generate_transactions(num_transactions):
             issue_date=fake.date_time_between(start_date='-5y', end_date=datetime.now()),
             return_date=fake.date_time_between(start_date='-5y', end_date=datetime.now()),
             expected_return_date=fake.date_time_between(start_date=datetime.now(), end_date=datetime.now()),
-            status=fake.random_element(elements=('Issued', 'Returned', 'Overdue'))
+            status=fake.random_element(elements=('Borrowed', 'Returned'))
         )
         db.session.add(transaction)
 

@@ -37,6 +37,16 @@ def home():
                            recent_books=recent_books, recent_members=recent_members, recent_issues=recent_issues, recent_returns=recent_returns
                            )
 
+@app.errorhandler(404)
+def page_not_found(error):
+
+    return render_template("404.html"), 404
+
+@app.errorhandler(500)
+def page_not_found(error):
+
+    return render_template("500.html"), 500
+
 @app.shell_context_processor
 def make_shell_processor():
     return dict(db=db, fake=fake)

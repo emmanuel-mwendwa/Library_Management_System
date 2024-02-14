@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
+{% block title %} Page Not Found {% endblock %}
+
+{% block styles %} {{ super() }} {% endblock %}
+
 {% block content %}
+
+{{ super() }}
+
+<h1>Page Not found</h1>
+
+<h4>Oops! Sorry the page your looking for has not been created yet.</h4>
+
+<p>Check back again soon.</p>
 
 {% endblock %}
