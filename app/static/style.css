@@ -90,12 +90,12 @@ div nav ul hr {
 }
 
 .navbar .navbar-links li a:hover {
-    background-color: #212b36;
+    background-color: #007bff;
     color: white;
 }
 
 .navbar .navbar-links li a:is(:link, :active, :visited).active {
-    background-color: #212b36;
+    background-color: #007bff;
     color: white;
 }
 
@@ -183,11 +183,11 @@ div nav ul hr {
 }
 
 .flashed-messages-section .error {
-    background-color: rgba(255, 0, 0, 0.4);
+    background-color: rgba(196, 28, 28, 0.589);
 }
 
 .flashed-messages-section .success {
-    background-color: green;
+    background-color: rgba(39, 202, 39, 0.705);
 }
 
 /* Flashed messages end here */
@@ -242,3 +242,43 @@ div nav ul hr {
 }
 
 /* add details to form ends here  */
+
+/* Pagination styles */
+.pagination {
+    margin-top: 20px;
+    list-style: none;
+    text-align: center;
+}
+
+.pagination li {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.pagination li.disabled a {
+    color: #999;
+    pointer-events: none;
+}
+
+.pagination li.active a {
+    color: #fff; 
+    background-color: #007bff; 
+    border-color: #007bff; 
+}
+
+.pagination li a {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination li a:hover {
+    background-color: #f5f5f5;
+}
+
+.pagination li.disabled span {
+    padding: 6px 12px;
+    border: 1px solid #ddd;
+    color: #999;
+}

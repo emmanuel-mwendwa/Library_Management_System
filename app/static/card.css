@@ -25,27 +25,27 @@
 }
 
 .card-details {
-    margin: 10px 5px;
+    margin: 14px 5px;
     align-items: start;
 }
 
 .card-details p {
-    margin-top: 12px;
+    margin-top: 18px;
 }
 
 .button-container {
-    margin: 10px 5px;
+    margin: 18px 5px;
 }
 
 .card .user-profile-pic {
-    height: 80px;
-    width: 80px;
+    height: 120px;
+    width: 120px;
     border-radius: 50%;
 }
 
 .card .user-background {
     background-color: #ddd;
-    height: 120px;
+    height: 180px;
     width: 100%;
     display: flex;
     justify-content: center;

@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, current_app
 
 from flask_login import login_required
 
@@ -38,20 +38,35 @@ def add_member():
 @member.route("/view_members")
 def view_members():
 
+    page = request.args.get('page', 1, type=int)
+
     search_term = request.args.get("search_term", "")
 
     if search_term:
         # Perform search query based on the search term
-        members = Member.filter_by(
+        pagination = Member.query.filter(
             Member.first_name.ilike(f"%{search_term}%") | 
             Member.email.ilike(f"%{search_term}%") | 
-            Member.last_name.ilike(f"%{search_term}%")).all()
+            Member.last_name.ilike(f"%{search_term}%"))\
+            .paginate(
+                page=page,
+                per_page=current_app.config["RECORDS_PER_PAGE"],
+                error_out=False
+            )
+        
+        members = pagination.items
 
     else:
 
-        members = Member.get_all()
+        pagination = Member.query.paginate(
+                page=page,
+                per_page=current_app.config["RECORDS_PER_PAGE"],
+                error_out=False
+            )
+        
+        members = pagination.items
 
-    return render_template("members/view_members.html", members=members)
+    return render_template("members/view_members.html", members=members, pagination=pagination, page=page)
 
 
 @member.route("/view_member/<int:member_id>")

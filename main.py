@@ -1,4 +1,4 @@
-from app import create_app, db
+from app import create_app, db, fake
 
 from flask_migrate import Migrate
 
@@ -39,7 +39,7 @@ def home():
 
 @app.shell_context_processor
 def make_shell_processor():
-    return dict(db=db)
+    return dict(db=db, fake=fake)
 
 if __name__ == "__main__":
     app.run(debug=True)

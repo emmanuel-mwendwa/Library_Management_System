@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% import "_macros.html" as macros %}
+
 {% block title %} View Books {% endblock %}
 
 {% block styles %} {{ super() }} {% endblock %}
@@ -56,6 +58,11 @@
           {% endfor %}
       </tbody>
   </table>
+  {% if pagination %}
+  <div class="pagination">
+    {{ macros.pagination_widget(pagination, "book.view_books")}}
+  </div>
+  {% endif %}
   </div>
 
   <script>

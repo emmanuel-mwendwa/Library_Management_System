@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, current_app
 
 from flask_login import login_required
 
@@ -46,18 +46,32 @@ def view_books():
 
     search_term = request.args.get("search_term", "")
 
+    page = int(request.args.get('page', '1'))
+
     if search_term:
         # Perform search query based on the search term
-        books = Book.filter_by(
+        pagination = Book.query.filter(
             Book.title.ilike(f"%{search_term}%") | 
             Book.author.ilike(f"%{search_term}%"))\
-        .all()
+        .paginate(
+            page=page, 
+            per_page=current_app.config["RECORDS_PER_PAGE"], 
+            error_out=False
+            )
+
+        books = pagination.items
         
     else:
 
-        books = Book.get_all()
+        pagination = Book.query.paginate(
+            page=page, 
+            per_page=current_app.config["RECORDS_PER_PAGE"], 
+            error_out=False
+            )
 
-    return render_template("books/view_books.html", books=books)
+        books = pagination.items
+
+    return render_template("books/view_books.html", books=books, pagination=pagination, page=page)
 
 
 @book.route("/view_book/<int:book_id>")
