@@ -16,7 +16,7 @@ def generate_books(num_books):
             author=fake.name(),
             publication_date=fake.date_between(start_date='-50y', end_date=datetime.now()),
             isbn=fake.isbn13(),
-            total_copies=randint(1, 10),
+            total_copies=randint(1, 10)
         )
         db.session.add(book)
 
@@ -44,7 +44,7 @@ def generate_transactions(num_transactions):
 def populate_database(num_books=20, num_members=10, num_transactions=50):
     generate_books(num_books)
     generate_members(num_members)
-    generate_transactions(num_transactions)
+    # generate_transactions(num_transactions)
     db.session.commit()
 
 if __name__ == "__main__":

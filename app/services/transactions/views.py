@@ -6,7 +6,7 @@ from app import db
 
 from app.models import Book, Member, Transaction
 
-from flask import render_template, redirect, url_for, flash, request, current_app
+from flask import render_template, redirect, url_for, flash, request, current_app, abort
 
 from datetime import datetime, timedelta
 
@@ -26,9 +26,17 @@ def issue_book():
         member = Member.query.get(member_id)
         book = Book.query.get(book_id)
 
-        if not member or not book:
+        if not member:
 
-            return {"Message": "Member or Book not found"}, 404
+            flash("Member does not exist", category="error")
+
+            return redirect(url_for(".issue_book"))
+        
+        if not book:
+
+            flash("Book does not exist", category="error")
+
+            return redirect(url_for(".issue_book"))
         
         # Check if transaction exists
         transaction = Transaction.query\
@@ -65,7 +73,7 @@ def issue_book():
             status = "Borrowed"
         )
 
-        return redirect(url_for("book.view_books"))
+        return redirect(url_for("transaction.view_transactions"))
 
     return render_template("transactions/issue_book.html", form=form)
 
@@ -91,9 +99,24 @@ def return_book():
                     .filter_by(member_id=member_id, book_id=book_id, return_date=None)\
                     .first()
 
-        if not member or not book or not transaction:
+        if not member:
             
-            return ({"message": "Member, Book, or Transaction not found"}), 404
+            flash(message="Member not found", category="error")
+
+            return redirect(url_for('transaction.return_book'))
+        
+        elif not book:
+            
+            flash(message="Book not found", category="error")
+
+            return redirect(url_for('transaction.return_book'))
+        
+        elif not transaction:
+
+            flash(message="Transaction not found", category="error")
+
+            return redirect(url_for('transaction.return_book'))
+            
 
         # Update book and transaction information
         book.available_copies += 1
@@ -103,7 +126,9 @@ def return_book():
         transaction.rent_fee = rent_fee
         db.session.commit()
 
-        return ({"message": "Book returned successfully", "rent_fee": rent_fee})
+        flash(f"Book returned successfully. Rent fee {rent_fee}", category="success")
+
+        return redirect(url_for("transaction.view_transactions"))
     
     return render_template("transactions/return_book.html", form=form)
 
