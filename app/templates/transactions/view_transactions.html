@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 
+{% import "_macros.html" as macros %}
+
 {% block title %} Transactions {% endblock %}
+
+{% block styles %} {{ super() }} {% endblock %}
 
 {% block content %}
 
 {{ super() }}
 
 <div class="list-container">
+  <form action="{{ url_for('transaction.view_transactions') }}" method="get">
+    <input type="search" name="search_term" value="{{ request.args.get('search_term', '') }}" placeholder="Borrowed or Returned">
+    <input type="submit" value="Search">
+  </form>
+
   <table class="list-table">
     <thead>
       <tr>
@@ -24,8 +33,8 @@
       {% for transaction in transactions %}
       <tr>
         <td>{{ transaction.id }}</td>
-        <td>{{ transaction.member_name }}</td>
-        <td>{{ transaction.book_title }}</td>
+        <td>{{ transaction.member.first_name }} {{ transaction.member.last_name }}</td>
+        <td>{{ transaction.book.title }}</td>
         <td>{{ transaction.issue_date.date() }}</td>
         {% if transaction.return_date %}
         <td>{{ transaction.return_date.date() }}</td>
@@ -39,6 +48,11 @@
       {% endfor %}
     </tbody>
   </table>
+  {% if pagination %}
+  <div class="pagination">
+    {{ macros.pagination_widget(pagination, "transaction.view_transactions", search_term=search_term)}}
+  </div>
+  {% endif %}
 </div>
 
 {% endblock %}

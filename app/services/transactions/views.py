@@ -6,7 +6,7 @@ from app import db
 
 from app.models import Book, Member, Transaction
 
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request, current_app
 
 from datetime import datetime, timedelta
 
@@ -111,27 +111,26 @@ def return_book():
 @transaction.route('/view_transactions')
 def view_transactions():
 
-    transactions = Transaction.get_all()
+    search_term = request.args.get('search_term', None) 
+    page = request.args.get('page', 1, type=int)
+    
+    if search_term == 'Borrowed':
 
-    transactions_data = []
+        pagination = Transaction.query.filter_by(status='Borrowed').paginate(page=page, per_page=current_app.config["RECORDS_PER_PAGE"], error_out=False)
 
-    for transaction in transactions:
+        transactions = pagination.items
+    
+    elif search_term == 'Returned':
+        
+        pagination = Transaction.query.filter_by(status='Returned').paginate(page=page, per_page=current_app.config["RECORDS_PER_PAGE"], error_out=False)
 
-        member_name = transaction.member.first_name + " " + transaction.member.last_name
+        transactions = pagination.items
+    
+    else:
 
-        book_title = transaction.book.title
+        pagination = Transaction.query.paginate(page=page, per_page=current_app.config["RECORDS_PER_PAGE"], error_out=False)
 
-        transaction_data = {
-            'id': transaction.id,
-            'member_name': member_name,
-            'book_title': book_title,
-            'issue_date': transaction.issue_date,
-            'return_date': transaction.return_date,
-            'rent_fee': transaction.rent_fee,
-            'expected_return_date': transaction.expected_return_date,
-            'status': transaction.status
-        }
+        transactions = pagination.items
 
-        transactions_data.append(transaction_data)
 
-    return render_template("transactions/view_transactions.html", transactions=transactions_data)
+    return render_template("transactions/view_transactions.html", transactions=transactions, pagination=pagination, page=page, search_term=search_term)
