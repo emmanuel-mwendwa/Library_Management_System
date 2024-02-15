@@ -34,7 +34,7 @@
         {% endif %}
         <td>{{ transaction.rent_fee }}</td>
         <td>{{ transaction.expected_return_date.date() }}</td>
-        <td>{{ transaction.status }}</td>
+        <td class="{% if transaction.status == 'Borrowed' %}status-borrowed{% else %}status-returned{% endif %}">{{ transaction.status }}</td>
       </tr>
       {% endfor %}
     </tbody>

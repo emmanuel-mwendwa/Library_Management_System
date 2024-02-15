@@ -8,10 +8,18 @@
 
 {{ super() }}
 
-<h1>Page Not found</h1>
+<div class="container error-page">
 
-<h4>Oops! Sorry the page your looking for has not been created yet.</h4>
+    <h1 class="error-code">404</h1>
 
-<p>Check back again soon.</p>
+    <h1 class="error-title">Page Not found</h1>
+    
+    <h4 class="error-message"> Oops! Sorry the page your looking for has not been created yet.</h4>
+
+    <p class="back-link"><a href="{{ url_for('home')}}">Go to Homepage</a></p>
+
+</div>
+
+
 
 {% endblock %}

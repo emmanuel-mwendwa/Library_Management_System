@@ -31,7 +31,7 @@ styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
       <div class="list-title">
         <h4>Recent Members</h4>
         <p>
-          <a href="">View All <span>-></span></a>
+          <a class="view-all-link" href="{{ url_for('member.view_members')}}">View All <span>&rarr;</span></a>
         </p>
       </div>
       <table class="list-table">
@@ -64,7 +64,7 @@ styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
       <div class="list-title">
         <h4>Recent Books</h4>
         <p>
-          <a href="">View All <span>-></span></a>
+          <a class="view-all-link" href="{{ url_for('book.view_books')}}">View All <span>&rarr;</span></a>
         </p>
       </div>
       <table class="list-table">
@@ -95,7 +95,7 @@ styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
       <div class="list-title">
         <h4>Recent Issues</h4>
         <p>
-          <a href="">View All <span>-></span></a>
+          <a class="view-all-link" href="{{ url_for('transaction.view_transactions')}}">View All <span>&rarr;</span></a>
         </p>
       </div>
       <table class="list-table">
@@ -129,7 +129,7 @@ styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
       <div class="list-title">
         <h4>Recent Returns</h4>
         <p>
-          <a href="">View All <span>-></span></a>
+          <a class="view-all-link" href="{{ url_for('transaction.view_transactions')}}">View All <span>&rarr;</span></a>
         </p>
       </div>
       <table class="list-table">

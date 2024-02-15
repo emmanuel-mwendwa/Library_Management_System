@@ -9,8 +9,16 @@
 {{ super() }}
 
 
-<h1> Internal Server Error</h1>
+<div class="container error-page">
 
-<p>Sorry, something went wrong on the server. We're working to fix it.</p>
+    <h1 class="error-code">404</h1>
+    
+    <h1 class="error-title"> Internal Server Error</h1>
+    
+    <h4 class="error-message">Sorry, something went wrong on the server. We're working to fix it.</h4>
+
+    <p class="back-link"><a href="{{ url_for('home')}}">Go to Homepage</a></p>
+   
+</div>
 
 {% endblock %}

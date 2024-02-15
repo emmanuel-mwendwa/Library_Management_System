@@ -140,6 +140,18 @@ div nav ul hr {
     grid-column: span 2;
 }
 
+.view-all-link {
+    text-decoration: none; /* Remove underline */
+    color: #007bff; /* Blue color */
+  }
+  
+  .view-all-link:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  .view-all-link span {
+    margin-left: 5px; /* Add space between "View All" text and the arrow */
+  }
 
 /* dashboard card ends here  */
 
@@ -243,6 +255,65 @@ div nav ul hr {
 
 /* add details to form ends here  */
 
+/* card styling starts here  */
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+  
+.card {
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+  
+.card img {
+    width: 100%;
+    height: auto;
+}
+  
+.card-details {
+    padding: 20px;
+}
+  
+.card-details p {
+    margin-bottom: 10px;
+}
+  
+.button-container {
+    text-align: center;
+}
+  
+.update-button,
+.delete-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-button{
+    background-color: #D04848;
+}
+
+.delete-button:hover {
+    background-color: #e53935;
+}
+  
+  .update-button:hover {
+    background-color: #0056b3;
+}
+
+/* card styling ends here  */
+
 /* Pagination styles */
 .pagination {
     margin-top: 20px;
@@ -282,3 +353,144 @@ div nav ul hr {
     border: 1px solid #ddd;
     color: #999;
 }
+
+/* pagination ends here  */
+
+/* error page handling  */
+
+.error-page {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.error-page .error-code {
+    font-size: 72px;
+    color: #dc3545; /* Red color for error code */
+}
+
+.error-page .error-message {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.error-page .back-link {
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.error-page .back-link a {
+    color: #007bff; /* Blue color for link */
+    text-decoration: none;
+}
+
+.error-page .back-link a:hover {
+    text-decoration: underline;
+}
+
+/* error page handling ends here  */
+
+/* Books and Members table starts here */
+.list-container {
+    margin: 20px;
+    padding: 16px 24px;
+    background-color: #fff;
+}
+
+.list-container form input[type='search'] {
+    padding: 9px 22px;
+    min-width: 320px;
+    border-radius: 5px 0px 0px 5px;
+    margin-right: -5px;
+}
+
+.list-container form input[type='submit'] {
+    padding: 9px 22px;    
+    border-radius: 0px 5px 5px 0px;
+
+}
+
+.list-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.list-table th, .list-table td {
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.list-table.td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+.cover-cell img {
+    width: 50px; /* Set the width to 50px */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.list-table th {
+    background-color: #f2f2f2;
+}
+
+.status-borrowed {
+    color: #ff6347; /* Red color for borrowed status */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+  
+  .status-returned {
+    color: #28a745; /* Green color for returned status */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+
+.actions {
+    width: 150px;
+    white-space: nowrap; /* Prevent line breaks in the Actions column */
+}
+
+.update-button, .delete-button, .view-button {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-right: 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.view-button {
+    background-color: #34446e;
+}
+
+.view-button:hover {
+    background-color: #2a3c6b;
+}
+
+.update-button {
+    background-color: #4caf50;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+
+.delete-button {
+    background-color: #D04848;
+}
+
+.delete-button:hover {
+    background-color: #e53935;
+}
+
+/* Books and Members table ends here */
