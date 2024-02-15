@@ -6,8 +6,8 @@ The librarian can:
 <li>create, read, update and delete members</li>
 <li>Issue books and process book returns</li>
 
-To run this system
-<h1>git clone https://github.com/emmanuel-mwendwa/Library_Management_System.git</h1>
+<h3>To run this system</h3>
+<h4>git clone https://github.com/emmanuel-mwendwa/Library_Management_System.git</h4>
 
 <h2>pip install -r requirements.txt</h2>
 
@@ -17,3 +17,5 @@ To run this system
 
 This is what the system looks like
 <h2>Dashboard</h2>
+![alt text](https://github.com/emmanuel-mwendwa/Library_Management_System/blob/main/Screenshots/Dashoard.png)
+
