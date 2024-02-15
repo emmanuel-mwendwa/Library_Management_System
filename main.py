@@ -17,6 +17,11 @@ def index():
 @app.route("/home")
 def home():
 
+    total_books = Book.query.count()
+    total_members = Member.query.count()
+    total_borrowed = Transaction.query.filter_by(status="Borrowed").count()
+    total_returned = Transaction.query.filter_by(status="Returned").count()
+
     recent_books = Book.query.order_by(Book.created_at.desc()).limit(4).all()
     
     recent_members = Member.query.order_by(Member.created_at.desc()).limit(4).all()
@@ -34,6 +39,8 @@ def home():
                         .all()
 
     return render_template("index.html", 
+                           total_books=total_books, total_members=total_members,
+                           total_borrowed=total_borrowed, total_returned=total_returned,
                            recent_books=recent_books, recent_members=recent_members, recent_issues=recent_issues, recent_returns=recent_returns
                            )
 

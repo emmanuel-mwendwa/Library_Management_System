@@ -3,27 +3,35 @@ styles %} {{ super() }} {% endblock %} {% block content %} {{ super() }}
 
 <div class="dash-card-container">
   <div class="dash-card">
-    <i></i>
-    <p>100</p>
-    <h4>Total Books</h4>
+    <img src="{{ url_for('static', filename='/images/books.jpg')}}" alt="">
+    <div>
+      <h4>Books</h4>
+      <p>{{ total_books }}</p>
+    </div>
   </div>
 
   <div class="dash-card">
-    <i></i>
-    <p>20</p>
-    <h4>Members</h4>
+    <img src="{{ url_for('static', filename='/images/members.png')}}" alt="">
+    <div>
+      <h4>Members</h4>
+      <p>{{ total_members }}</p>
+    </div>
   </div>
 
   <div class="dash-card">
-    <i></i>
-    <p>120</p>
-    <h4>Borrowed</h4>
+    <img src="{{ url_for('static', filename='/images/issue.png')}}" alt="">
+    <div>
+      <h4>Issued</h4>
+      <p>{{ total_borrowed }}</p>
+    </div>
   </div>
 
   <div class="dash-card">
-    <i></i>
-    <p>120</p>
-    <h4>Borrowed</h4>
+    <img src="{{ url_for('static', filename='/images/return.png')}}" alt="">
+    <div>
+      <h4>Returned</h4>
+      <p>{{ total_returned }}</p>
+    </div>
   </div>
 
   <div class="recent-members">
