@@ -6,7 +6,7 @@ class Config():
 
     SECRET_KEY = os.environ.get('SECRET_KEY')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    RECORDS_PER_PAGE = int(os.environ.get('RECORDS_PER_PAGE'))
+    RECORDS_PER_PAGE = int(os.environ.get('RECORDS_PER_PAGE', 18))
 
     @staticmethod
     def init_app(app):
