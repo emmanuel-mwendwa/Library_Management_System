@@ -132,6 +132,10 @@ class Transaction(db.Model, CRUDMixin):
             expected_return_date = expected_return_datetime.date()
 
             days_overdue = (self.return_date - expected_return_date).days
-            rent_fee = max(0, days_overdue * 0.5)  # Adjust the penalty calculation as needed
+            rent_fee = max(0, days_overdue * 10)  # Adjust the penalty calculation as needed
+
+            if rent_fee >= 500:
+
+                rent_fee = 500
             
             return rent_fee
