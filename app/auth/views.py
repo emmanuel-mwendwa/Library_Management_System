@@ -72,6 +72,7 @@ def logout():
 def before_request():
     if not current_user.is_authenticated\
         and request.endpoint != 'auth.signup'\
+        and request.endpoint != 'auth.login'\
             and request.endpoint != 'static':
         
         return redirect(url_for('auth.login'))
