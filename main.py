@@ -67,7 +67,7 @@ def test():
 
     tests = unittest.TestLoader().discover("tests")
 
-    results = unittest.TextTestRunner(verbosity=1).run(tests)
+    results = unittest.TextTestRunner(verbosity=3).run(tests)
 
     if not results.wasSuccessful():
 

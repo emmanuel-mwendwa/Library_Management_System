@@ -70,10 +70,17 @@ def logout():
 # if user has not logged in 
 @auth.before_app_request
 def before_request():
-    if not current_user.is_authenticated\
-        and request.endpoint != 'auth.signup'\
-        and request.endpoint != 'auth.login'\
-            and request.endpoint != 'static':
+
+    # Check if api or form request
+
+    api_request = request.path.startswith('/api/v1')
+    
+    login_endpoint = 'api.login' if api_request else 'auth.login'
+
+    exempt_endpoints = ['auth.signup', 'auth.login', 'api.login', 'api.register', 'static']
+
+    if not current_user.is_authenticated and request.endpoint not in exempt_endpoints:
         
-        return redirect(url_for('auth.login'))
+        return redirect(url_for(login_endpoint))
+        
     
