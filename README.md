@@ -1,5 +1,13 @@
 # Library Management System
 
+<hr>
+
+# View it live 
+
+www.library.emmanuel-mwendwa.xyz
+
+<hr>
+
 The Library Management System (LMS) is designed to be used by library staff, specifically the Librarian. Upon logging in to the system, the Librarian is presented with a dashboard containing various options to manage the library's operations efficiently.
 It is built using Flask, HTML and CSS
 
