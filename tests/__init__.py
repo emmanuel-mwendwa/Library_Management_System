@@ -1,7 +1,7 @@
 import unittest
 from app import create_app, db
 
-from app.models import Book
+from app.models import Book, Member
 
 from datetime import datetime
 
@@ -50,4 +50,17 @@ class BaseTestConfig(unittest.TestCase):
         db.session.commit()
         
         return book
-        
+    
+    def create_test_member(self, first_name='John', last_name='Doe', email='john@example.com'):
+
+        member = Member(
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+
+        db.session.add(member)
+        db.session.commit()
+
+        return member
+    

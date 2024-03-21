@@ -1,15 +1,7 @@
-import unittest
 import json
 import base64
 
-from flask import url_for
-
 from tests import BaseTestConfig
-
-from app.models import Book
-
-from datetime import datetime
-
 
 class BookTestCase(BaseTestConfig):
 
