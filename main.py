@@ -58,5 +58,22 @@ def page_not_found(error):
 def make_shell_processor():
     return dict(db=db, fake=fake)
 
+
+@app.cli.command()
+def test():
+    """Testing """
+    import unittest
+    import sys
+
+    tests = unittest.TestLoader().discover("tests")
+
+    results = unittest.TextTestRunner(verbosity=1).run(tests)
+
+    if not results.wasSuccessful():
+
+        sys.exit(1)
+
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)
