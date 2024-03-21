@@ -32,7 +32,6 @@ def create_book():
 
 # Retrieve all books
 @api.route('/books', methods=['GET'])
-@login_required
 def get_all_books():
     books = Book.query.all()
     result = []
@@ -48,7 +47,7 @@ def get_all_books():
             'created_at': str(book.created_at),
             'updated_at': str(book.updated_at)
         })
-    return jsonify(result)
+    return jsonify(result), 200
 
 # Retrieve a specific book by ID
 @api.route('/books/<int:book_id>', methods=['GET'])

@@ -10,7 +10,6 @@ from .. import db
 
 from ..models import User
 
-
 @auth.route('/signup', methods=["GET", "POST"])
 def signup():
 
@@ -71,16 +70,14 @@ def logout():
 @auth.before_app_request
 def before_request():
 
-    # Check if api or form request
+    if request.path.startswith('/api/v1/')\
+        and not current_user.is_authenticated:
 
-    api_request = request.path.startswith('/api/v1')
-    
-    login_endpoint = 'api.login' if api_request else 'auth.login'
+        return
 
-    exempt_endpoints = ['auth.signup', 'auth.login', 'api.login', 'api.register', 'static']
-
-    if not current_user.is_authenticated and request.endpoint not in exempt_endpoints:
+    elif not current_user.is_authenticated\
+        and request.blueprint != 'auth'\
+            and request.endpoint != 'static':
         
-        return redirect(url_for(login_endpoint))
-        
+        return redirect(url_for('auth.login'))
     

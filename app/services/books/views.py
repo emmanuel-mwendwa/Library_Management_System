@@ -18,6 +18,7 @@ from app.models import Book
 
 
 @book.route('/add_book', methods=['GET', 'POST'])
+@login_required
 def add_book():
     form = NewBookForm()
 
