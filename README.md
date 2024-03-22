@@ -6,6 +6,8 @@
 
 www.library.emmanuel-mwendwa.xyz
 
+- For test cases you can use the username *"john@gmail.com"* and the password *"asdf"*
+
 <hr>
 
 The Library Management System (LMS) is designed to be used by library staff, specifically the Librarian. Upon logging in to the system, the Librarian is presented with a dashboard containing various options to manage the library's operations efficiently.
