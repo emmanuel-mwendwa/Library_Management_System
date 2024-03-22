@@ -4,19 +4,16 @@ import base64
 from tests import BaseTestConfig
 
 class BookTestCase(BaseTestConfig):
-
-    user_details = {
-    "username": "johndoe@gmail.com",
-    "password": "password123"
-    }
    
 
     def test_create_book(self):
 
+        user = self.create_user()
+
         with self.client:
 
             headers = {
-                "Authentication": f"Basic {base64.b64encode('{userdetails.username}:{userdetails.password}'.encode('utf-8')).decode('utf-8')}",
+                "Authorization": f"Basic {base64.b64encode(f'{user.email}:password123'.encode('utf-8')).decode('utf-8')}",
                 "Content-Type": "application/json"
             }
             
@@ -38,10 +35,16 @@ class BookTestCase(BaseTestConfig):
     def test_get_all_books(self):
 
         self.create_sample_book()
+        user = self.create_user()
 
         with self.client:
 
-            response = self.client.get('/api/v1/books')
+            headers = {
+                "Authorization": f"Basic {base64.b64encode(f'{user.email}:password123'.encode('utf-8')).decode('utf-8')}",
+                "Content-Type": "application/json"
+            }
+
+            response = self.client.get('/api/v1/books', headers=headers)
             self.assertEqual(response.status_code, 200)
             self.assertTrue(len(response.get_json()) > 0)
 
@@ -49,10 +52,16 @@ class BookTestCase(BaseTestConfig):
     def test_get_book(self):
 
         book = self.create_sample_book()
+        user = self.create_user()
 
         with self.client:
 
-            response = self.client.get(f'/api/v1/books/{book.id}')
+            headers = {
+                "Authorization": f"Basic {base64.b64encode(f'{user.email}:password123'.encode('utf-8')).decode('utf-8')}",
+                "Content-Type": "application/json"
+            }
+
+            response = self.client.get(f'/api/v1/books/{book.id}', headers=headers)
             self.assertEqual(response.status_code, 200)
             self.assertIn('Sample Book', response.get_data(as_text=True))
 
@@ -60,13 +69,19 @@ class BookTestCase(BaseTestConfig):
     def test_update_book(self):
 
         book = self.create_sample_book()
+        user = self.create_user()
 
         with self.client:
+
+            headers = {
+                "Authorization": f"Basic {base64.b64encode(f'{user.email}:password123'.encode('utf-8')).decode('utf-8')}",
+                "Content-Type": "application/json"
+            }
 
             response = self.client.put(f'/api/v1/books/{book.id}', json={
                 'title': 'Updated Book',
                 'author': 'Updated Author'
-            })
+            }, headers=headers)
 
             self.assertEqual(response.status_code, 200)
             self.assertIn('Book updated successfully', response.get_data(as_text=True))
@@ -75,9 +90,15 @@ class BookTestCase(BaseTestConfig):
     def test_delete_book(self):
 
         book = self.create_sample_book()
+        user = self.create_user()
 
         with self.client:
 
-            response = self.client.delete(f'/api/v1/books/{book.id}')
+            headers = {
+                "Authorization": f"Basic {base64.b64encode(f'{user.email}:password123'.encode('utf-8')).decode('utf-8')}",
+                "Content-Type": "application/json"
+            }
+
+            response = self.client.delete(f'/api/v1/books/{book.id}', headers=headers)
             self.assertEqual(response.status_code, 200)
             self.assertIn('Book deleted successfully', response.get_data(as_text=True))

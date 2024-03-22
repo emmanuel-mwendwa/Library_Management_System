@@ -10,8 +10,11 @@ from . import api
 
 from .. import db
 
+from .auth import basic_auth
+
 
 @api.route('/books', methods=['POST'])
+@basic_auth.login_required
 def create_book():
 
     data = request.json
@@ -30,11 +33,15 @@ def create_book():
 
     return jsonify({'message': 'Book created successfully'}), 201
 
-# Retrieve all books
+
 @api.route('/books', methods=['GET'])
+@basic_auth.login_required
 def get_all_books():
+
     books = Book.query.all()
+
     result = []
+
     for book in books:
         result.append({
             'id': book.id,
@@ -47,12 +54,16 @@ def get_all_books():
             'created_at': str(book.created_at),
             'updated_at': str(book.updated_at)
         })
+
     return jsonify(result), 200
 
-# Retrieve a specific book by ID
+
 @api.route('/books/<int:book_id>', methods=['GET'])
+@basic_auth.login_required
 def get_book(book_id):
+
     book = Book.query.get(book_id)
+
     if book:
         return jsonify({
             'id': book.id,
@@ -65,35 +76,55 @@ def get_book(book_id):
             'created_at': str(book.created_at),
             'updated_at': str(book.updated_at)
         })
+    
     else:
+
         return jsonify({'message': 'Book not found'}), 404
 
-# Update a specific book by ID
+
 @api.route('/books/<int:book_id>', methods=['PUT'])
+@basic_auth.login_required
 def update_book(book_id):
+
     book = Book.query.get(book_id)
+
     if book:
+
         data = request.json
         book.title = data['title'] if 'title' in data else book.title
         book.author = data['author'] if 'author' in data else book.author
+
         if 'publication_date' in data:
             book.publication_date = datetime.strptime(data['publication_date'], '%Y-%m-%d')
+
         book.isbn = data['isbn'] if 'isbn' in data else book.isbn
         book.available_copies = data['available_copies'] if 'available_copies' in data else book.available_copies
         book.total_copies = data['total_copies'] if 'total_copies' in data else book.total_copies
         book.updated_at = datetime.utcnow()
+
         db.session.commit()
+
         return jsonify({'message': 'Book updated successfully'})
+    
     else:
+        
         return jsonify({'message': 'Book not found'}), 404
 
-# Delete a specific book by ID
+
+
 @api.route('/books/<int:book_id>', methods=['DELETE'])
+@basic_auth.login_required
 def delete_book(book_id):
+
     book = Book.query.get(book_id)
+
     if book:
+
         db.session.delete(book)
         db.session.commit()
+
         return jsonify({'message': 'Book deleted successfully'})
+    
     else:
+
         return jsonify({'message': 'Book not found'}), 404

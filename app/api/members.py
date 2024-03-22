@@ -4,12 +4,15 @@ from datetime import datetime
 
 from . import api
 
+from .auth import basic_auth
+
 from .. import db
 
 from ..models import Member
 
 
 @api.route('/members', methods=["POST"])
+@basic_auth.login_required
 def create_member():
 
     data = request.get_json()
@@ -35,6 +38,7 @@ def create_member():
 
 
 @api.route('/members', methods=["GET"])
+@basic_auth.login_required
 def get_members():
 
     members = Member.query.all()
@@ -51,6 +55,7 @@ def get_members():
 
 
 @api.route('/members/<int:id>', methods=["GET"])
+@basic_auth.login_required
 def get_member(id):
 
     member = Member.query.get_or_404(id)
@@ -69,6 +74,7 @@ def get_member(id):
 
 
 @api.route('/members/<int:id>', methods=["PUT"])
+@basic_auth.login_required
 def update_member(id):
     member = Member.query.get(id)
     data = request.get_json()
@@ -89,6 +95,7 @@ def update_member(id):
 
 
 @api.route('/members/<int:id>', methods=['DELETE'])
+@basic_auth.login_required
 def delete_member(id):
     member = Member.query.get(id)
     

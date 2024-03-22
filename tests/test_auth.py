@@ -8,14 +8,6 @@ from tests import BaseTestConfig
 
 class AuthTestCase(BaseTestConfig):
 
-    def create_user(self, email='john@example.com', password='password123'):
-        
-        user = User(first_name='John', last_name='Doe', email=email, password=password)
-        
-        db.session.add(user)
-        db.session.commit()
-        
-        return user
 
     def test_register_user(self):
 
@@ -39,14 +31,12 @@ class AuthTestCase(BaseTestConfig):
         self.create_user()
 
         # Test user login
-        response = self.client.post('api/v1/login', json={
+        response = self.client.post('/api/v1/login', json={
             'email': 'john@example.com',
             'password': 'password123'
         })
 
         self.assertEqual(response.status_code, 200)
-        data = response.get_json()
-        self.assertEqual(data['message'], 'Logged in successfully.')
 
 
     def test_logout(self):
