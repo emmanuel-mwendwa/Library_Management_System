@@ -49,7 +49,7 @@ The librarian can:
 
 1. **Login**: Log in to the system using your credentials as the Librarian.
 
-   - For test cases you can use the username *"test@gmail.com"* and the password *"test123"*
+   - For test cases you can use the username *"john@gmail.com"* and the password *"asdf"*
 
 3. **Navigate Dashboard**: Once logged in, you'll see the dashboard with various options listed above.
 
