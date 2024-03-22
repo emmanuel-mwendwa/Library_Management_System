@@ -25,7 +25,7 @@ class ReturnBookForm(FlaskForm):
         DataRequired()
         ])
     
-    return_date = DateField('Return Date', format='%Y-%m-%d', 
-                            validators=[
-                                DataRequired()
-                                ])
+    # return_date = DateField('Return Date', format='%Y-%m-%d', 
+    #                         validators=[
+    #                             DataRequired()
+    #                             ])

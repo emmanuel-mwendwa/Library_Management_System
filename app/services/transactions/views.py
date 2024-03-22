@@ -87,8 +87,9 @@ def return_book():
 
         member_id = form.member_id.data
         book_id = form.book_id.data
-        return_date = form.return_date.data
+        return_date = datetime.utcnow()
         book_status = "Returned"
+        print(return_date)
 
         # Check if member, book, and transaction exist
         member = Member.query.get(member_id)

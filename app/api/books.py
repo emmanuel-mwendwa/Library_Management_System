@@ -1,7 +1,5 @@
 from flask import request, jsonify
 
-from flask_login import login_required
-
 from datetime import datetime
 
 from ..models import Book
